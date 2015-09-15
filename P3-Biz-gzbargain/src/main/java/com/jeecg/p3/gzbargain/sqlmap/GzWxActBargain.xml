@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.gzbargain.entity.GzWxActBargain">
+
+	<!-- Result Map-->
+	<resultMap id="GzWxActBargain" type="com.jeecg.p3.gzbargain.entity.GzWxActBargain" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_name" property="actName" jdbcType="VARCHAR"/>
+		<result column="act_detail" property="actDetail" jdbcType="VARCHAR"/>
+		<result column="act_rule" property="actRule" jdbcType="VARCHAR"/>
+		<result column="act_content" property="actContent" jdbcType="VARCHAR"/>
+		<result column="begain_time" property="begainTime" jdbcType="TIMESTAMP"/>
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+		<result column="product_num" property="productNum" jdbcType="INTEGER"/>
+		<result column="product_unit" property="productUnit" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="product_price" property="productPrice" jdbcType="DECIMAL"/>
+		<result column="foucs_user_can_join" property="foucsUserCanJoin" jdbcType="VARCHAR"/>
+		<result column="show_rate" property="showRate" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="product_remain_num" property="productRemainNum" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<!--
+	方法名称: get
+	调用路径: GzWxActBargain.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="GzWxActBargain">
+		   SELECT   
+                   wab.id                            /* ID */ 
+                  ,wab.act_name                      /* 砍价活动名称 */ 
+                  ,wab.act_detail                    /* 活动详情 */ 
+                  ,wab.act_rule                      /* 活动规则 */ 
+                  ,wab.act_content                   /* 活动内容 */ 
+                  ,wab.begain_time                   /* 活动开始时间 */ 
+                  ,wab.end_time                      /* 活动结束时间 */ 
+                  ,wab.product_num                   /* 产品数量 */ 
+                  ,wab.product_unit                  /* 产品单位 */ 
+                  ,wab.product_name                  /* 产品名称 */ 
+                  ,wab.product_price                 /* 产品价格 */ 
+                  ,wab.foucs_user_can_join           /* 是否关注用户参与 */ 
+                  ,wab.show_rate                     /* 展示比例 */ 
+                  ,wab.create_time                   /* 创建时间 */ 
+                  ,wab.product_remain_num            /* 产品剩余数量 */ 
+		   FROM   gz_wx_act_bargain      AS wab         /* 砍价活动表 */ 
+		   WHERE
+				  id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: updateProductRemainNum
+	调用路径: GzWxActBargain.updateProductRemainNum
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="updateProductRemainNum" parameterType="Object" >
+	  UPDATE   gz_wx_act_bargain  	/* 砍价活动表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+    		 		/* 产品数量 */ 
+   		 			product_remain_num  = product_remain_num  - #{cutNum,jdbcType=INTEGER},
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	
+</mapper>
