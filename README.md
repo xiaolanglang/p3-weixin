@@ -30,7 +30,12 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 	3.采用maven方式，启动主项目P3-Web，命令：tomcat:run
       活动访问地址：http://localhost:8080/P3-Web/gzbargain/toIndex.do?actId=actgzbargain00001&openid=oR0jFt_DTsAUJebWqGeq3A1VWfRw&subscribe=1
 	  说明：插件不能单独启动，maven方式引入到Web项目
-
+	  
+新插件项目生成工具
+	  
+	工具类：P3-Project-Generator/src/main/java/GeneratorMain.java
+	修改项目名{ProjectName}，执行Main方法，即可生成新插件项目
+	项目名：P3-Biz-{ProjectName}
 	  
 开发文档下载
 
