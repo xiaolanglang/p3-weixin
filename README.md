@@ -24,6 +24,7 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 	  
 	  
 开发环境入门
+
 	1.Eclipse + Maven + JDK7
     2.项目以Maven方式导入eclipse
 	3.采用maven方式，启动主项目P3-Web，命令：tomcat:run
@@ -32,6 +33,7 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 
 	  
 开发文档下载
+
 	1.【官方文档】捷微（Jeewx）微信对外接口
     2.【官方文档】P3-weixin 微信插件式开发规范
 	3.【官方文档】P3-Weixin 建表规范
