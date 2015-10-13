@@ -60,4 +60,4 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 * [Jeewx 捷微官网](http://www.jeewx.com)
 * [Jeewx 捷微演示](http://www.jeewx.com/jeewx)
 * [Jeewx 技术论坛](http://www.jeecg.org)
-*  Jeewx微信开发群四；413534092
+*  技术QQ群: 413534092
