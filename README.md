@@ -34,7 +34,13 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 新插件项目生成工具
 	  
 	工具类：P3-Project-Generator/src/main/java/GeneratorMain.java
-	修改项目名{ProjectName}，执行Main方法，即可生成新插件项目
+	
+	public static void main(String[] args) throws Exception {
+		//项目名
+		String projectName = "Gogo";//项目名称 ：P3-Biz-{自定义模块名}
+		GeneratorFactory.doMake(projectName);
+	}
+	
 	项目名：P3-Biz-{ProjectName}
 	  
 开发文档下载
