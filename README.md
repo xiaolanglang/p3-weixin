@@ -22,14 +22,21 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 	6.数据库配置文件：
 	  src/main/resources/db.properties
 	  
+	  
 开发环境入门
-
-    1.Eclipse + Maven + JDK7
+	1.Eclipse + Maven + JDK7
     2.项目以Maven方式导入eclipse
 	3.采用maven方式，启动主项目P3-Web，命令：tomcat:run
       活动访问地址：http://localhost:8080/P3-Web/gzbargain/toIndex.do?actId=actgzbargain00001&openid=oR0jFt_DTsAUJebWqGeq3A1VWfRw&subscribe=1
 	  说明：插件不能单独启动，maven方式引入到Web项目
 
+	  
+开发文档下载
+	1.【官方文档】捷微（Jeewx）微信对外接口
+    2.【官方文档】P3-weixin 微信插件式开发规范
+	3.【官方文档】P3-Weixin 建表规范
+      [文档下载来点我](http://www.jeecg.org/forum.php?mod=forumdisplay&fid=191)
+    
 	  
 ### 微信插件说明（陆续更新...）
 	  1.微信砍价活动   P3-Biz-gzbargain
