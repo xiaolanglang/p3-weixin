@@ -1,9 +1,9 @@
 Jeewx 微信插件开发框架，松耦合开发微信HTML5活动
 ==========
 P3-Weixin （JAVA SAAS模式插件开发利器）
+==========
 
-
-### 架构技术介绍
+【架构技术介绍】
 
     1.P3-weixin 采用SpringMvc + Mybatis + Velocity + Maven(构建) 框架技术
     2.插件引入方式
