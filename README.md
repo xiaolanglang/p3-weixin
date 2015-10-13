@@ -1,10 +1,9 @@
 Jeewx 微信插件开发框架，松耦合开发微信HTML5活动
 ==========
 P3-Weixin （JAVA SAAS模式插件开发利器）
-===============
 
-架构技术介绍
--------------
+
+### 架构技术介绍
 
     1.P3-weixin 采用SpringMvc + Mybatis + Velocity + Maven(构建) 框架技术
     2.插件引入方式
@@ -24,8 +23,7 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 	  src/main/resources/db.properties
 	  
 	  
-开发环境入门
-------------
+【开发环境入门】
 
 	1.Eclipse + Maven + JDK7
     2.项目以Maven方式导入eclipse
@@ -33,8 +31,7 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
       活动访问地址：http://localhost:8080/P3-Web/gzbargain/toIndex.do?actId=actgzbargain00001&openid=oR0jFt_DTsAUJebWqGeq3A1VWfRw&subscribe=1
 	  说明：插件不能单独启动，maven方式引入到Web项目
 	  
-新插件项目生成工具
------------
+【插件项目生成】
 	  
 	工具类：P3-Project-Generator/src/main/java/GeneratorMain.java
 	
@@ -46,8 +43,7 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 	
 	项目名：P3-Biz-{ProjectName}
 	  
-开发文档下载
------------
+【开发文档】
 
 	1.【官方文档】捷微（Jeewx）微信对外接口
     2.【官方文档】P3-weixin 微信插件式开发规范
@@ -56,12 +52,11 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
     
 	  
 ### 微信插件说明（陆续更新...）
--------
 	  1.微信砍价活动   P3-Biz-gzbargain
 	  
 	  
 ### Jeecg开源社区
--------------
+
 * [Jeewx 捷微官网](http://www.jeewx.com)
 * [Jeewx 捷微演示](http://www.jeewx.com/jeewx)
 * [Jeewx 技术论坛](http://www.jeecg.org)
