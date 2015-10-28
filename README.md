@@ -70,3 +70,8 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150827arn602ga2f2x323g.png "jeecg")
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150453lzotkxnol9q26tfq.png "jeecg")
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150630wgkz68gsobbkzopq.png "jeecg")
+
+
+### P3后台管理演示
+![github](http://img.blog.csdn.net/20151028202143675?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
+![github](http://img.blog.csdn.net/20151028202206676?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
