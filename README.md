@@ -48,6 +48,8 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 	1.【官方文档】捷微（Jeewx）微信对外接口
     2.【官方文档】P3-weixin 微信插件式开发规范
 	3.【官方文档】P3-Weixin 建表规范
+	![github](http://img.blog.csdn.net/20151028163509595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
+	
 * [  文档下载来点我](http://www.jeecg.org/forum.php?mod=forumdisplay&fid=191)
     
 	  
