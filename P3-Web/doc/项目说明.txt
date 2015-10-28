@@ -1,4 +1,4 @@
-框架技术：Springmvc_3.2.9.RELEASE + Mybatis_3 + Velicity_1.6.4（无jsp页面）
+框架技术：Springmvc_3.2.9.RELEASE + Mybatis_3 + Velicity_1.6.4
 开发环境：eclipse + maven构建
 
 1.插件引入方式
