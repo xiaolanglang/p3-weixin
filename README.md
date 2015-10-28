@@ -66,11 +66,7 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 
 
 ### 砍价活动演示
-* 	第一步：报名参加活动（点击"我要参加"）
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150241ck1hm1l6h1g5hgl2.png "jeecg")
-* 	第二步：我的参与活动主页面
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150827arn602ga2f2x323g.png "jeecg")
-* 	第三步：分享朋友圈，让好友帮忙砍价
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150453lzotkxnol9q26tfq.png "jeecg")
-* 	第四步：商品砍价为零，领取奖品
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150630wgkz68gsobbkzopq.png "jeecg")
