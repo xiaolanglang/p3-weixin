@@ -20,10 +20,10 @@
 <div class="bombs2 fail1" >
     <div class="inputcontent2">
     	<div class="erwm_form">
-    		<input type="hidden" name="act_focus_subscribe" id="act_focus_subscribe" value="$!{bargainDto.subscribe}"/>
-			<input type="hidden" name="act_focus_actId" id="act_focus_actId" value="$!{bargainDto.actId}"/>
-			<input type="hidden" name="act_focus_openid"  id="act_focus_openid" value="$!{bargainDto.openid}"/>
-			<input type="hidden" name="act_focus_nickname"  id="act_focus_nickname" value="$!{bargainDto.nickname}"/>
+    		<input type="hidden" name="act_focus_subscribe" id="act_focus_subscribe" value="$!{weixinDto.subscribe}"/>
+			<input type="hidden" name="act_focus_actId" id="act_focus_actId" value="$!{weixinDto.actId}"/>
+			<input type="hidden" name="act_focus_openid"  id="act_focus_openid" value="$!{weixinDto.openid}"/>
+			<input type="hidden" name="act_focus_nickname"  id="act_focus_nickname" value="$!{weixinDto.nickname}"/>
     		<div class="erwm_img"><img src="../content/gzbargain/img/tcc_erwmimg1.png" /> <a href="javascript:void(0);"><img src="../content/gzbargain/img/tcc_erwmimg2.png" /></a></div>
        </div>
     </div>

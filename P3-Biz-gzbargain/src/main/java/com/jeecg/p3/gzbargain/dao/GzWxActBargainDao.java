@@ -1,5 +1,8 @@
 package com.jeecg.p3.gzbargain.dao;
 
+import java.util.List;
+
+import org.jeecgframework.p3.core.utils.common.PageQuery;
 import org.jeecgframework.p3.core.utils.persistence.GenericDao;
 
 import com.jeecg.p3.gzbargain.entity.GzWxActBargain;
@@ -18,6 +21,10 @@ public interface GzWxActBargainDao extends GenericDao<GzWxActBargain>{
 	 * @param cutNum 扣除的数量
 	 */
 	public void updateProductRemainNum(String id,Integer cutNum);
+
+	public Integer count(PageQuery<GzWxActBargain> pageQuery);
+	
+	public List<GzWxActBargain> queryPageList(PageQuery<GzWxActBargain> pageQuery,Integer itemCount);
 	
 }
 

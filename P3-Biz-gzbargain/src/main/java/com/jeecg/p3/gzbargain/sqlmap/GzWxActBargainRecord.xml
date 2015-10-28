@@ -13,6 +13,7 @@
 		<result column="cut_price" property="cutPrice" jdbcType="DECIMAL"/>
 		<result column="curr_price" property="currPrice" jdbcType="DECIMAL"/>
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	
@@ -31,6 +32,7 @@
                   ,wabr.cut_price                     /*  */ 
                   ,wabr.curr_price                    /*  */ 
                   ,wabr.create_time                   /* 创建时间 */ 
+                  ,wabr.jwid
 		FROM   	 gz_wx_act_bargain_record      AS wabr   /* 砍价帮砍记录表 */ 
 		WHERE wabr.registration_id = #{value}
 		order by wabr.create_time desc
@@ -51,6 +53,7 @@
                   ,wabr.cut_price                     /*  */ 
                   ,wabr.curr_price                    /*  */ 
                   ,wabr.create_time                   /* 创建时间 */ 
+                  ,wabr.jwid
 		FROM   	 gz_wx_act_bargain_record      AS wabr   /* 砍价帮砍记录表 */ 
 		WHERE 	wabr.registration_id = #{registrationId}
 			and wabr.openid = #{openid}
@@ -72,6 +75,7 @@
                      ,cut_price                     /*  */ 
                      ,curr_price                    /*  */ 
                      ,create_time                   /* 创建时间 */ 
+                     ,jwid
 					)
 			values (
 					  #{id,jdbcType=VARCHAR} 
@@ -81,6 +85,7 @@
                      ,#{cutPrice,jdbcType=DECIMAL}                      /*  */ 
                      ,#{currPrice,jdbcType=DECIMAL}                     /*  */ 
                      ,#{createTime,jdbcType=TIMESTAMP}                    /* 创建时间 */ 
+                     ,#{jwid,jdbcType=VARCHAR} 
 					)
 	</insert>
 
@@ -138,6 +143,7 @@
                   ,wabr.cut_price                     /*  */ 
                   ,wabr.curr_price                    /*  */ 
                   ,wabr.create_time                   /* 创建时间 */ 
+                  ,wabr.jwid
 		   FROM   gz_wx_act_bargain_record      AS wabr      /* 砍价帮砍记录表 */ 
 		   WHERE
 				id = #{id}				/* 序号 */ 

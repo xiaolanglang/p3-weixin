@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.velocity.VelocityContext;
-import org.jeecgframework.p3.core.common.exception.BargainException;
-import org.jeecgframework.p3.core.common.exception.ExceptionEnum;
+import org.jeecgframework.p3.base.vo.WeixinDto;
 import org.jeecgframework.p3.core.common.utils.AjaxJson;
 import org.jeecgframework.p3.core.common.utils.DateUtil;
 import org.jeecgframework.p3.core.common.utils.RandomUtils;
@@ -26,17 +25,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.jeecg.p3.gzbargain.entity.GzWxActBargain;
 import com.jeecg.p3.gzbargain.entity.GzWxActBargainAwards;
 import com.jeecg.p3.gzbargain.entity.GzWxActBargainRecord;
 import com.jeecg.p3.gzbargain.entity.GzWxActBargainRegistration;
+import com.jeecg.p3.gzbargain.exception.GzbargainException;
+import com.jeecg.p3.gzbargain.exception.GzbargainExceptionEnum;
 import com.jeecg.p3.gzbargain.service.GzWxActBargainAwardsService;
 import com.jeecg.p3.gzbargain.service.GzWxActBargainRecordService;
 import com.jeecg.p3.gzbargain.service.GzWxActBargainRegistrationService;
 import com.jeecg.p3.gzbargain.service.GzWxActBargainService;
-import com.jeecg.p3.gzbargain.web.vo.BargainDto;
+import com.jeecg.p3.gzbargain.util.EmojiFilter;
 
  /**
  * 描述：砍价活动
@@ -64,47 +64,54 @@ public class GzBargainController extends BaseController{
 	 * @throws Exception 
 	  */
 	 @RequestMapping(value = "/toIndex",method ={RequestMethod.GET, RequestMethod.POST})
-	 public void toIndex(@ModelAttribute BargainDto bargainDto,HttpServletRequest request,HttpServletResponse response,ModelMap model) throws Exception{
-		 LOG.info(request, "toIndex parameter BargainDto={}.", new Object[]{bargainDto});
+	 public void toIndex(@ModelAttribute WeixinDto weixinDto,HttpServletRequest request,HttpServletResponse response,ModelMap model) throws Exception{
+		 LOG.info(request, "toIndex parameter WeixinDto={}.", new Object[]{weixinDto});
+		 
+		 //====================================================================================================
+		 //装载微信所需参数
+		 String jwid = weixinDto.getJwid();
+		 String appid = weixinDto.getAppid();
+		 String actId = weixinDto.getActId();
+		//====================================================================================================
 		 
 		 //update-begin-----author:scott---------date:21050809------for:解码昵称------------------
-		 if(bargainDto.getFxOpenid()!=null){
-			 bargainDto.setFxNickname(WeiXinHttpUtil.getNickName(bargainDto.getFxOpenid()));
+		 if(weixinDto.getFxOpenid()!=null){
+			 String nickname = WeiXinHttpUtil.getNickName(weixinDto.getFxOpenid(),jwid);
+			 weixinDto.setFxNickname(EmojiFilter.filterNickName(nickname));
 		 }
-		 if(bargainDto.getOpenid()!=null){
-			 bargainDto.setNickname(WeiXinHttpUtil.getNickName(bargainDto.getOpenid()));
+		 if(weixinDto.getOpenid()!=null){
+			 String nickname =WeiXinHttpUtil.getNickName(weixinDto.getOpenid(),jwid);
+			 weixinDto.setNickname(EmojiFilter.filterNickName(nickname));
 		 }
 		 //update-begin-----author:scott---------date:21050809------for:解码昵称------------------
 		 VelocityContext velocityContext = new VelocityContext();
-//		 ModelAndView mav = new ModelAndView("gzbargain/index");
 		 String viewName = "gzbargain/vm/index.vm";
 		 try {
 			 //参数验证
-			 validateBargainDtoParam(bargainDto);
+			 validateWeixinDtoParam(weixinDto);
 			 //获取活动信息
-			 GzWxActBargain gzWxActBargain = gzWxActBargainService.queryWxActBargain(bargainDto.getActId());
+			 GzWxActBargain gzWxActBargain = gzWxActBargainService.queryWxActBargain(weixinDto.getActId());
 			 if(gzWxActBargain==null){
-				 throw new BargainException(ExceptionEnum.DATA_NOT_EXIST_ERROR,"活动不存在");
+				 throw new GzbargainException(GzbargainExceptionEnum.DATA_NOT_EXIST_ERROR,"活动不存在");
 			 }
-//			 mav.addObject("bargain", gzWxActBargain);
+			 if(!weixinDto.getJwid().equals(gzWxActBargain.getJwid())){
+				 throw new GzbargainException(GzbargainExceptionEnum.DATA_NOT_EXIST_ERROR,"活动不属于该微信公众号");
+			 }
 			 velocityContext.put("bargain", gzWxActBargain);
 			 //有效期内可参与  
 			 Date currDate = new Date();
 			 if(currDate.before(gzWxActBargain.getBegainTime())){
 				  String begainTime = DateUtil.convertToShowTime(gzWxActBargain.getBegainTime());
-				 throw new BargainException(ExceptionEnum.ACT_BARGAIN_NO_START,"活动未开始,开始时间为"+begainTime+",请耐心等待！");
+				 throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_NO_START,"活动未开始,开始时间为"+begainTime+",请耐心等待！");
 			 }
 			 if(currDate.after(gzWxActBargain.getEndTime())){
-//				 mav.addObject("actStatus", "0");//活动结束
 				 velocityContext.put("actStatus", "0");//活动结束
 			 }else{
-//				 mav.addObject("actStatus", "1");
 				 velocityContext.put("actStatus", "1");
 			 }
 			 //获取奖品邮寄时间
 			 Date postTime = DateUtil.addDays(gzWxActBargain.getEndTime(), 1);
 			 String postTimeStr = DateUtil.date2Str(postTime, "M月d日");
-//			 mav.addObject("postTimeStr", postTimeStr);
 			 velocityContext.put("postTimeStr", postTimeStr);
 			 //砍价规则
 			 String actRuleMin = "0";
@@ -116,123 +123,95 @@ public class GzBargainController extends BaseController{
 					 actRuleMax = rules[1];
 				 }
 			 }
-//			 mav.addObject("actRuleMin", actRuleMin);
-//			 mav.addObject("actRuleMax", actRuleMax);
 			 velocityContext.put("actRuleMin", actRuleMin);
 			 velocityContext.put("actRuleMax", actRuleMax);
 			 
 			 List<GzWxActBargainRecord> bargainRecordList = new ArrayList<GzWxActBargainRecord>();
 			 //判断是否是分享活动
-			 if(isShareAct(bargainDto)){
-				 if(bargainDto.getFxOpenid().equals(bargainDto.getOpenid())){
-//					 if("0".equals(bargainDto.getSubscribe())){
-//						 throw new BargainException(ExceptionEnum.ACT_BARGAIN_NO_FOCUS,"非关注用户");
-//					 }
-//					 mav.setViewName("gzbargain/index");
+			 if(isShareAct(weixinDto)){
+				 if(weixinDto.getFxOpenid().equals(weixinDto.getOpenid())){
 					 viewName = "gzbargain/vm/index.vm";
 				 }else{
-//					 mav.setViewName("gzbargain/fxindex");
 					 viewName = "gzbargain/vm/fxindex.vm";
 				 }
 				//根据分享人openid查询分享人的报名信息
-				 GzWxActBargainRegistration gzWxActBargainRegistration =  gzWxActBargainRegistrationService.queryRegistrationByOpenidAndActId(bargainDto.getFxOpenid(), bargainDto.getActId());
+				 GzWxActBargainRegistration gzWxActBargainRegistration =  gzWxActBargainRegistrationService.queryRegistrationByOpenidAndActId(weixinDto.getFxOpenid(), weixinDto.getActId());
 				 if(gzWxActBargainRegistration==null){
-					 throw new BargainException(ExceptionEnum.DATA_NOT_EXIST_ERROR,"活动无效");
+					 throw new GzbargainException(GzbargainExceptionEnum.DATA_NOT_EXIST_ERROR,"活动无效");
 				 }
-//				 mav.addObject("bargainRegistration", gzWxActBargainRegistration);
 				 velocityContext.put("bargainRegistration", gzWxActBargainRegistration);
 				 //查询砍价记录
 				 bargainRecordList =  gzWxActBargainRecordService.queryBargainRecordListByRegistrationId(gzWxActBargainRegistration.getId());
 			 }else{
-				 if("0".equals(bargainDto.getSubscribe())){
-					 throw new BargainException(ExceptionEnum.ACT_BARGAIN_NO_FOCUS,"非关注用户");
+				 if("0".equals(weixinDto.getSubscribe())){
+					 throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_NO_FOCUS,"非关注用户");
 				 }
 				 //根据访问人openid查询访问人的报名信息 
-				 GzWxActBargainRegistration gzWxActBargainRegistration =  gzWxActBargainRegistrationService.queryRegistrationByOpenidAndActId(bargainDto.getOpenid(), bargainDto.getActId());
+				 GzWxActBargainRegistration gzWxActBargainRegistration =  gzWxActBargainRegistrationService.queryRegistrationByOpenidAndActId(weixinDto.getOpenid(), weixinDto.getActId());
 				 if(gzWxActBargainRegistration==null){
 					 gzWxActBargainRegistration = new GzWxActBargainRegistration();
 					 gzWxActBargainRegistration.setId(RandomUtils.generateID());
-					 gzWxActBargainRegistration.setActId(bargainDto.getActId());
-					 gzWxActBargainRegistration.setOpenid(bargainDto.getOpenid());
-					 gzWxActBargainRegistration.setNickname(bargainDto.getNickname());
+					 gzWxActBargainRegistration.setActId(weixinDto.getActId());
+					 gzWxActBargainRegistration.setOpenid(weixinDto.getOpenid());
+					 gzWxActBargainRegistration.setNickname(weixinDto.getNickname());
 					 gzWxActBargainRegistration.setProductName(gzWxActBargain.getProductName());
 					 gzWxActBargainRegistration.setProductNewPrice(gzWxActBargain.getProductPrice());
 					 gzWxActBargainRegistration.setProductPrice(gzWxActBargain.getProductPrice());
 					 gzWxActBargainRegistration.setCreateTime(new Date());
+					 gzWxActBargainRegistration.setJwid(gzWxActBargain.getJwid());
 					 gzWxActBargainRegistrationService.add(gzWxActBargainRegistration);
 				 }else{
 					//查询砍价记录
 					bargainRecordList =  gzWxActBargainRecordService.queryBargainRecordListByRegistrationId(gzWxActBargainRegistration.getId());
 				 }
-//				 mav.addObject("bargainRegistration", gzWxActBargainRegistration);
 				 velocityContext.put("bargainRegistration", gzWxActBargainRegistration);
 			 }
-//			 mav.addObject("recordListCount", bargainRecordList==null?0:bargainRecordList.size());
-//			 mav.addObject("recordList", bargainRecordList);
-//			 mav.addObject("bargainDto", bargainDto);
 			 velocityContext.put("recordListCount", bargainRecordList==null?0:bargainRecordList.size());
 			 velocityContext.put("recordList", bargainRecordList);
-			 velocityContext.put("bargainDto", bargainDto);
+			 velocityContext.put("weixinDto", weixinDto);
 			 
-			 //update-begin-----author:scott---------date:21050809------for:获取分享signature------------------
-			 String url = request.getRequestURL() + "?" + request.getQueryString();//.replace("&", "@");
-			 if(url.indexOf("#")!=-1){
-				 url = url.substring(0,url.indexOf("#"));
-			 }
 			 
-			 System.out.println("--------------当前访问PageUrl---------------："+url);
-//			 mav.addObject("nonceStr", WeiXinHttpUtil.nonceStr);
-//			 mav.addObject("timestamp", WeiXinHttpUtil.timestamp);
-//			 mav.addObject("hdUrl", hdUrl);
-//			 mav.addObject("appId", WeiXinHttpUtil.appId);
-//			 mav.addObject("signature", WeiXinHttpUtil.getSignature(url));
+			//update-begin-----author:scott---------date:21050809------for:微信分享参数------------------
 			 velocityContext.put("nonceStr", WeiXinHttpUtil.nonceStr);
 			 velocityContext.put("timestamp", WeiXinHttpUtil.timestamp);
-			 velocityContext.put("hdUrl", WeiXinHttpUtil.getLocalHdUrl("gzbargain"));
-			 velocityContext.put("appId", WeiXinHttpUtil.appId);
-			 velocityContext.put("signature", WeiXinHttpUtil.getSignature(url));
-			//update-end-----author:scott---------date:21050809------for:获取分享signature------------------
+			 velocityContext.put("hdUrl", WeiXinHttpUtil.getOauth2Url("gzbargain", jwid, actId)); //获取分享URL
+			 velocityContext.put("appId", appid);
+			 velocityContext.put("signature", WeiXinHttpUtil.getSignature(request,jwid));
+			//update-begin-----author:scott---------date:21050809------for:微信分享参数------------------
 			 
-			 
-		}catch (BargainException e) {
+		}catch (GzbargainException e) {
 			LOG.error("toIndex error:{}", e.getMessage());
-//			mav.setViewName("gzbargain/error");
 			viewName = "gzbargain/vm/error.vm";
-//			mav.addObject("errCode", e.getDefineCode());
-//			mav.addObject("errMsg", e.getMessage());
 			velocityContext.put("errCode", e.getDefineCode());
 			velocityContext.put("errMsg", e.getMessage());
 		} catch (Exception e) {
 			 LOG.error("toIndex error:{}", e);
-//			 mav.setViewName("gzbargain/error");
 			 viewName = "gzbargain/vm/error.vm";
-//			 mav.addObject("errCode", ExceptionEnum.SYS_ERROR.getErrCode());
-//			 mav.addObject("errMsg", ExceptionEnum.SYS_ERROR.getErrChineseMsg());
-			 velocityContext.put("errCode", ExceptionEnum.SYS_ERROR.getErrCode());
-			 velocityContext.put("errMsg", ExceptionEnum.SYS_ERROR.getErrChineseMsg());
+			 velocityContext.put("errCode", GzbargainExceptionEnum.SYS_ERROR.getErrCode());
+			 velocityContext.put("errMsg", GzbargainExceptionEnum.SYS_ERROR.getErrChineseMsg());
 		} 
-//		return mav;
 		ViewVelocity.view(response,viewName,velocityContext);
 	 }
+	 
   
-	 private void validateBargainDtoParam(BargainDto bargainDto){
-		 if(StringUtils.isEmpty(bargainDto.getActId())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"活动ID不能为空");
+	 private void validateWeixinDtoParam(WeixinDto weixinDto){
+		 if(StringUtils.isEmpty(weixinDto.getActId())){
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"活动ID不能为空");
 		 }
-		 if(StringUtils.isEmpty(bargainDto.getOpenid())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"参与人openid不能为空");
+		 if(StringUtils.isEmpty(weixinDto.getOpenid())){
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"参与人openid不能为空");
 		 }
-//		 if(StringUtils.isEmpty(bargainDto.getNickname())){
-//			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"参与人昵称不能为空");
-//		 }
-		 if(StringUtils.isEmpty(bargainDto.getSubscribe())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"关注状态不能为空");
+		 if(StringUtils.isEmpty(weixinDto.getJwid())){
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"微信ID不能为空");
+		 }
+		 if(StringUtils.isEmpty(weixinDto.getSubscribe())){
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"关注状态不能为空");
 		 }
 	 }
 	 
-	 private boolean isShareAct(BargainDto bargainDto){
+	 private boolean isShareAct(WeixinDto weixinDto){
 		 boolean flag = false;
-		 if(StringUtils.isNotEmpty(bargainDto.getFxOpenid())){
+		 if(StringUtils.isNotEmpty(weixinDto.getFxOpenid())){
 			 flag = true;
 		 }
 		 return flag;
@@ -253,9 +232,9 @@ public class GzBargainController extends BaseController{
 			//判断是否已经砍价
 			List<GzWxActBargainRecord> bargainRecordList = gzWxActBargainRecordService.queryBargainRecordListByRegistrationIdAndOpenid(gzWxActBargainRecord.getRegistrationId(), gzWxActBargainRecord.getOpenid());
 			if(bargainRecordList!=null&&bargainRecordList.size()>0){
-				throw new BargainException(ExceptionEnum.DATA_EXIST_ERROR,"您已经砍过价了，不能再次砍价。");
+				throw new GzbargainException(GzbargainExceptionEnum.DATA_EXIST_ERROR,"您已经砍过价了，不能再次砍价。");
 			}
-		} catch (BargainException e) {
+		} catch (GzbargainException e) {
 			j.setSuccess(false);
 			j.setMsg(e.getMessage());
 			LOG.error("gzbargain error:{}", e.getMessage());
@@ -269,10 +248,10 @@ public class GzBargainController extends BaseController{
 	
 	private void validateGoBargainRecordParam(GzWxActBargainRecord gzWxActBargainRecord){
 		 if(StringUtils.isEmpty(gzWxActBargainRecord.getRegistrationId())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"报名ID不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"报名ID不能为空");
 		 }
 		 if(StringUtils.isEmpty(gzWxActBargainRecord.getOpenid())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"砍价人openid不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"砍价人openid不能为空");
 		 }
 	 }
  
@@ -290,16 +269,16 @@ public class GzBargainController extends BaseController{
 			validateBargainRecordParam(gzWxActBargainRecord);
 			//验证码验证
 			if (!gzWxActBargainRecord.getRandCode().equalsIgnoreCase(String.valueOf(request.getSession().getAttribute("randCode")))){
-				throw new BargainException(ExceptionEnum.VALIDATE_RANDCODE_ERROR,"验证码输入错误");
+				throw new GzbargainException(GzbargainExceptionEnum.VALIDATE_RANDCODE_ERROR,"验证码输入错误");
 			}
 			//判断是否已经砍价
 			List<GzWxActBargainRecord> bargainRecordList = gzWxActBargainRecordService.queryBargainRecordListByRegistrationIdAndOpenid(gzWxActBargainRecord.getRegistrationId(), gzWxActBargainRecord.getOpenid());
 			if(bargainRecordList!=null&&bargainRecordList.size()>0){
-				throw new BargainException(ExceptionEnum.DATA_EXIST_ERROR,"您已经砍过价了，不能再次砍价。");
+				throw new GzbargainException(GzbargainExceptionEnum.DATA_EXIST_ERROR,"您已经砍过价了，不能再次砍价。");
 			}
 			gzWxActBargainRecordService.bargain(gzWxActBargainRecord);
 			j.setObj(gzWxActBargainRecord);
-		} catch (BargainException e) {
+		} catch (GzbargainException e) {
 			j.setSuccess(false);
 			j.setMsg(e.getMessage());
 			LOG.error("bargain error:{}", e.getMessage());
@@ -313,22 +292,22 @@ public class GzBargainController extends BaseController{
 	
 	private void validateBargainRecordParam(GzWxActBargainRecord gzWxActBargainRecord){
 		 if(StringUtils.isEmpty(gzWxActBargainRecord.getRegistrationId())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"报名ID不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"报名ID不能为空");
 		 }
 		 if(StringUtils.isEmpty(gzWxActBargainRecord.getOpenid())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"砍价人openid不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"砍价人openid不能为空");
 		 }
 //		 if(StringUtils.isEmpty(gzWxActBargainRecord.getNickname())){
-//			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"砍价人昵称不能为空");
+//			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"砍价人昵称不能为空");
 //		 }
 		 if(StringUtils.isEmpty(gzWxActBargainRecord.getSubscribe())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"关注状态不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"关注状态不能为空");
 		 }
 		 if("0".equals(gzWxActBargainRecord.getSubscribe())){
-			 throw new BargainException(ExceptionEnum.ACT_BARGAIN_NO_FOCUS,"砍价人非关注用户");
+			 throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_NO_FOCUS,"砍价人非关注用户");
 		 }
 		 if(StringUtils.isEmpty(gzWxActBargainRecord.getRandCode())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"验证码不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"验证码不能为空");
 		 }
 	 }
 	 
@@ -351,9 +330,9 @@ public class GzBargainController extends BaseController{
 				j.setObj(gzWxActBargainAwards);
 				return j;
 			}else{
-				throw new BargainException(ExceptionEnum.ACT_BARGAIN_PRIZE_NO_GET,"未中奖");
+				throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_PRIZE_NO_GET,"未中奖");
 			}
-		}catch (BargainException e) {
+		}catch (GzbargainException e) {
 			j.setSuccess(false);
 			j.setMsg(e.getMessage());
 			LOG.error("goReceivePrize error:{}", e.getMessage());
@@ -367,19 +346,19 @@ public class GzBargainController extends BaseController{
 	
 	private void validateGoReceivePrizeParam(GzWxActBargainAwards gzWxActBargainAwards){
 		if(StringUtils.isEmpty(gzWxActBargainAwards.getActId())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"活动ID不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"活动ID不能为空");
 		 }
 		 if(StringUtils.isEmpty(gzWxActBargainAwards.getOpenid())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"兑奖人openid不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"兑奖人openid不能为空");
 		 }
 //		 if(StringUtils.isEmpty(gzWxActBargainAwards.getNickname())){
-//			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"兑奖人昵称不能为空");
+//			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"兑奖人昵称不能为空");
 //		 }
 		 if(StringUtils.isEmpty(gzWxActBargainAwards.getSubscribe())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"关注状态不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"关注状态不能为空");
 		 }
 		 if("0".equals(gzWxActBargainAwards.getSubscribe())){
-			 throw new BargainException(ExceptionEnum.ACT_BARGAIN_NO_FOCUS,"兑奖人非关注用户");
+			 throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_NO_FOCUS,"兑奖人非关注用户");
 		 }
 	 }
 	
@@ -400,8 +379,9 @@ public class GzBargainController extends BaseController{
 			Date postTime = DateUtil.addDays(gzWxActBargain.getEndTime(), 1);
 			String postTimeStr = DateUtil.date2Str(postTime, "M月d日");
 			j.setObj(postTimeStr);
+			gzWxActBargainAwards.setJwid(gzWxActBargain.getJwid());
 			gzWxActBargainAwardsService.updateAwards(gzWxActBargainAwards);
-		} catch (BargainException e) {
+		} catch (GzbargainException e) {
 			j.setSuccess(false);
 			j.setMsg(e.getMessage());
 		} catch (Exception e) {
@@ -413,16 +393,16 @@ public class GzBargainController extends BaseController{
 	
 	private void validateReceivePrizeParam(GzWxActBargainAwards gzWxActBargainAwards){
 		 if(StringUtils.isEmpty(gzWxActBargainAwards.getId())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"兑奖ID不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"兑奖ID不能为空");
 		 }
 		 if(StringUtils.isEmpty(gzWxActBargainAwards.getRealName())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"用户真实姓名不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"用户真实姓名不能为空");
 		 }
 		 if(StringUtils.isEmpty(gzWxActBargainAwards.getMobile())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"用户手机号不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"用户手机号不能为空");
 		 }
 		 if(StringUtils.isEmpty(gzWxActBargainAwards.getAddress())){
-			 throw new BargainException(ExceptionEnum.ARGUMENT_ERROR,"用户详细地址不能为空");
+			 throw new GzbargainException(GzbargainExceptionEnum.ARGUMENT_ERROR,"用户详细地址不能为空");
 		 }
 	 }
 }

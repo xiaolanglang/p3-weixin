@@ -21,7 +21,33 @@ public class GzWxActBargain implements Entity<String> {
 	/**
 	 *产品剩余数量
 	 */
-	private Integer productRemainNum;	public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getActName() {	    return this.actName;	}	public void setActName(String actName) {	    this.actName=actName;	}	public String getActDetail() {	    return this.actDetail;	}	public void setActDetail(String actDetail) {	    this.actDetail=actDetail;	}	public String getActRule() {
+	private Integer productRemainNum;
+	/**
+	 * 对应微信平台原始id
+	 */
+	private String jwid;
+	/**
+	 * 第几页
+	 */
+	private Integer offset;
+	/**
+	 * 每页多少条
+	 */
+	private Integer limit;
+	
+		public Integer getOffset() {
+		return offset;
+	}
+	public void setOffset(Integer offset) {
+		this.offset = offset;
+	}
+	public Integer getLimit() {
+		return limit;
+	}
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+	public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getActName() {	    return this.actName;	}	public void setActName(String actName) {	    this.actName=actName;	}	public String getActDetail() {	    return this.actDetail;	}	public void setActDetail(String actDetail) {	    this.actDetail=actDetail;	}	public String getActRule() {
 		return actRule;
 	}
 	public void setActRule(String actRule) {
@@ -34,9 +60,15 @@ public class GzWxActBargain implements Entity<String> {
 	public void setProductRemainNum(Integer productRemainNum) {
 		this.productRemainNum = productRemainNum;
 	}
+	public String getJwid() {
+		return jwid;
+	}
+	public void setJwid(String jwid) {
+		this.jwid = jwid;
+	}
 	@Override
 	public String toString() {
-		return "WxActBargain [id=" + id + ", actName=" + actName
+		return "GzWxActBargain [id=" + id + ", actName=" + actName
 				+ ", actDetail=" + actDetail + ", actRule=" + actRule
 				+ ", actContent=" + actContent + ", begainTime=" + begainTime
 				+ ", endTime=" + endTime + ", productNum=" + productNum
@@ -44,7 +76,8 @@ public class GzWxActBargain implements Entity<String> {
 				+ productName + ", productPrice=" + productPrice
 				+ ", foucsUserCanJoin=" + foucsUserCanJoin + ", showRate="
 				+ showRate + ", createTime=" + createTime
-				+ ", productRemainNum=" + productRemainNum + "]";
+				+ ", productRemainNum=" + productRemainNum + ", jwid=" + jwid
+				+ "]";
 	}
 	
 	

@@ -101,6 +101,7 @@ function join(){
 		url = url+"&openid="+$("#act_focus_openid").val();
 		//url = url+"&nickname="+$("#act_focus_nickname").val();
 		url = url+"&subscribe="+act_focus_subscribe;
+		url = url+"&jwid="+$("#act_focus_jwid").val();
 		location.href=url;
 	}
 }

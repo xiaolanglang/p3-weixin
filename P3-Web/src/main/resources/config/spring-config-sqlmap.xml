@@ -20,6 +20,10 @@
 			javaType="com.p3.demo.handler.OrgEnum"/>
 	
 	</typeHandlers> -->
+	<plugins>
+       <plugin interceptor="org.jeecgframework.p3.core.utils.persistence.mybatis.interceptor.MybatisInterceptor">
+       </plugin>
+    </plugins>
 	
 	<!-- <mappers>
 		<mapper resource="com/jeecg/p3/bargain/sqlmap/WxActBargain.xml" />

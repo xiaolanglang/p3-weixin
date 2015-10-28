@@ -1,7 +1,10 @@
 package com.jeecg.p3.gzbargain.dao.impl;
 
+import java.util.List;
 import java.util.Map;
 
+import org.jeecgframework.p3.core.utils.common.PageQuery;
+import org.jeecgframework.p3.core.utils.common.PageQueryWrapper;
 import org.jeecgframework.p3.core.utils.persistence.mybatis.GenericDaoDefault;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +29,17 @@ public class GzWxActBargainDaoImpl extends GenericDaoDefault<GzWxActBargain> imp
 		super.update("updateProductRemainNum", param);
 	}
 
+	@Override
+	public Integer count(PageQuery<GzWxActBargain> pageQuery) {
+		return (Integer) super.queryOne("count",pageQuery);
+	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<GzWxActBargain> queryPageList(
+			PageQuery<GzWxActBargain> pageQuery,Integer itemCount) {
+		PageQueryWrapper<GzWxActBargain> wrapper = new PageQueryWrapper<GzWxActBargain>(pageQuery.getPageNo(), pageQuery.getPageSize(),itemCount, pageQuery.getQuery());
+		return (List<GzWxActBargain>)super.query("queryPageList",wrapper);
+	}
 }
 

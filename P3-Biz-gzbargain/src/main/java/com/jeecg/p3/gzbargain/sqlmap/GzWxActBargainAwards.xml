@@ -15,6 +15,7 @@
 		<result column="address" property="address" jdbcType="VARCHAR"/>
 		<result column="awards_code" property="awardsCode" jdbcType="VARCHAR"/>
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	
@@ -49,6 +50,7 @@
                      ,address                       /* 详细地址 */ 
                      ,awards_code                   /* 兑奖码 */ 
                      ,create_time                   /* 创建时间 */ 
+                     ,jwid 
 					)
 			values (
 					  #{id,jdbcType=VARCHAR}                        
@@ -61,6 +63,7 @@
                      ,#{address,jdbcType=VARCHAR}                       /* 详细地址 */ 
                      ,#{awardsCode,jdbcType=VARCHAR}                    /* 兑奖码 */ 
                      ,#{createTime,jdbcType=TIMESTAMP}                    /* 创建时间 */ 
+                     ,#{jwid,jdbcType=VARCHAR}
 					)
 	</insert>
 
@@ -109,6 +112,7 @@
                   ,waba.address                       /* 详细地址 */ 
                   ,waba.awards_code                   /* 兑奖码 */ 
                   ,waba.create_time                   /* 创建时间 */ 
+                  ,waba.jwid
 		   FROM   gz_wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
 		   WHERE
 				id = #{id}				/* 序号 */ 
@@ -130,12 +134,12 @@
                   ,waba.mobile                        /* 手机号 */ 
                   ,waba.address                       /* 详细地址 */ 
                   ,waba.awards_code                   /* 兑奖码 */ 
-                  ,waba.create_time                   /* 创建时间 */ 
+                  ,waba.create_time                   /* 创建时间 */
+                  ,waba.jwid 
 		   FROM   gz_wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
 		   WHERE
 				waba.act_id = #{actId}				
 				and  waba.openid = #{openid}	
-				
 	</select>
 	
 	

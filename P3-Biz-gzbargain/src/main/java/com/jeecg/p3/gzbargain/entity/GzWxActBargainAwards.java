@@ -26,6 +26,10 @@ public class GzWxActBargainAwards implements Entity<String> {
 	 *兑奖人昵称
 	 */
 	private String nickname;	/**	 *真实姓名	 */	private String realName;	/**	 *手机号	 */	private String mobile;	/**	 *详细地址	 */	private String address;	/**	 *兑奖码	 */	private String awardsCode;	/**	 *创建时间	 */	private Date createTime;
+	/**
+	 * 对应微信平台原始id
+	 */
+	private String jwid;
 	
 	/**
 	 * 是否关注（ 用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。）
@@ -49,6 +53,12 @@ public class GzWxActBargainAwards implements Entity<String> {
 		this.nickname = nickname;
 	}
 	public String getRealName() {	    return this.realName;	}	public void setRealName(String realName) {	    this.realName=realName;	}	public String getMobile() {	    return this.mobile;	}	public void setMobile(String mobile) {	    this.mobile=mobile;	}	public String getAddress() {	    return this.address;	}	public void setAddress(String address) {	    this.address=address;	}	public String getAwardsCode() {	    return this.awardsCode;	}	public void setAwardsCode(String awardsCode) {	    this.awardsCode=awardsCode;	}	public Date getCreateTime() {	    return this.createTime;	}	public void setCreateTime(Date createTime) {	    this.createTime=createTime;	}
+	public String getJwid() {
+		return jwid;
+	}
+	public void setJwid(String jwid) {
+		this.jwid = jwid;
+	}
 	public String getSubscribe() {
 		return subscribe;
 	}
@@ -57,12 +67,12 @@ public class GzWxActBargainAwards implements Entity<String> {
 	}
 	@Override
 	public String toString() {
-		return "WxActBargainAwards [id=" + id + ", actId=" + actId
+		return "GzWxActBargainAwards [id=" + id + ", actId=" + actId
 				+ ", awardsSeq=" + awardsSeq + ", openid=" + openid
 				+ ", nickname=" + nickname + ", realName=" + realName
 				+ ", mobile=" + mobile + ", address=" + address
 				+ ", awardsCode=" + awardsCode + ", createTime=" + createTime
-				+ ", subscribe=" + subscribe + "]";
+				+ ", jwid=" + jwid + ", subscribe=" + subscribe + "]";
 	}
 	
 	

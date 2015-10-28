@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.jeecgframework.p3.core.common.exception.BargainException;
-import org.jeecgframework.p3.core.common.exception.ExceptionEnum;
 import org.jeecgframework.p3.core.common.utils.RandomUtils;
 import org.jeecgframework.p3.core.logger.Logger;
 import org.jeecgframework.p3.core.logger.LoggerFactory;
@@ -21,6 +19,8 @@ import com.jeecg.p3.gzbargain.entity.GzWxActBargain;
 import com.jeecg.p3.gzbargain.entity.GzWxActBargainAwards;
 import com.jeecg.p3.gzbargain.entity.GzWxActBargainRecord;
 import com.jeecg.p3.gzbargain.entity.GzWxActBargainRegistration;
+import com.jeecg.p3.gzbargain.exception.GzbargainException;
+import com.jeecg.p3.gzbargain.exception.GzbargainExceptionEnum;
 import com.jeecg.p3.gzbargain.service.GzWxActBargainAwardsService;
 import com.jeecg.p3.gzbargain.service.GzWxActBargainRecordService;
 import com.jeecg.p3.gzbargain.service.GzWxActBargainService;
@@ -58,13 +58,13 @@ public class GzWxActBargainRecordServiceImpl implements GzWxActBargainRecordServ
 	public void bargain(GzWxActBargainRecord gzWxActBargainRecord) {
 		GzWxActBargainRegistration bargainRegistration = gzWxActBargainRegistrationDao.get(gzWxActBargainRecord.getRegistrationId());
 		if(bargainRegistration.getProductNewPrice().compareTo(BigDecimal.ZERO)<=0){
-			throw new BargainException(ExceptionEnum.ACT_BARGAIN_FINISH);
+			throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_FINISH);
 		}
 		GzWxActBargain gzWxActBargain = gzWxActBargainService.queryWxActBargain(bargainRegistration.getActId());
 		BigDecimal cutPrice = getCutPrice(gzWxActBargain.getActRule());
 		Date currDate = new Date();
 		if(currDate.after(gzWxActBargain.getEndTime())){
-			throw new BargainException(ExceptionEnum.ACT_BARGAIN_END,"活动已结束");
+			throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_END,"活动已结束");
 		}
 		//更新报名砍价信息
 		gzWxActBargainRegistrationDao.updateBargainPrice(gzWxActBargainRecord.getRegistrationId(), cutPrice);
@@ -82,12 +82,13 @@ public class GzWxActBargainRecordServiceImpl implements GzWxActBargainRecordServ
 			Integer nextAwardsSeq = maxAwardsSeq+1;
 			//获取活动信息
 			if(nextAwardsSeq>gzWxActBargain.getProductNum()){
-				throw new BargainException(ExceptionEnum.ACT_BARGAIN_PRIZE_NONE,"奖品已抢光！");
+				throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_PRIZE_NONE,"奖品已抢光！");
 			}
 			gzWxActBargainAwards.setAwardsSeq(nextAwardsSeq);
 			gzWxActBargainAwards.setActId(bargainRegistration.getActId());
 			gzWxActBargainAwards.setOpenid(bargainRegistration.getOpenid());
 			gzWxActBargainAwards.setNickname(bargainRegistration.getNickname());
+			gzWxActBargainAwards.setJwid(bargainRegistration.getJwid());
 			gzWxActBargainAwardsService.createAwards(gzWxActBargainAwards);
 		}
 		//插入砍价记录
@@ -95,6 +96,7 @@ public class GzWxActBargainRecordServiceImpl implements GzWxActBargainRecordServ
 		gzWxActBargainRecord.setCutPrice(cutPrice);
 		gzWxActBargainRecord.setCurrPrice(bargainRegistration.getProductNewPrice());
 		gzWxActBargainRecord.setCreateTime(new Date());
+		gzWxActBargainRecord.setJwid(bargainRegistration.getJwid());
 		LOG.info("insert gzWxActBargainRecord:{}", gzWxActBargainRecord);
 		gzWxActBargainRecordDao.add(gzWxActBargainRecord);
 	}
@@ -108,10 +110,10 @@ public class GzWxActBargainRecordServiceImpl implements GzWxActBargainRecordServ
 			    BigDecimal db = new BigDecimal(Math.random() * (max - min) + min);  
 			    return db.setScale(2, BigDecimal.ROUND_HALF_UP);
 			}else{
-				throw new BargainException(ExceptionEnum.ACT_BARGAIN_RULE_ERROR);
+				throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_RULE_ERROR);
 			}
 		} catch (Exception e) {
-			throw new BargainException(ExceptionEnum.ACT_BARGAIN_RULE_ERROR);
+			throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_RULE_ERROR);
 		}
 	}
 

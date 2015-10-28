@@ -1,0 +1,32 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+<form action='../system/login.do' method='post'>
+<table>
+
+<tr>
+	<td colspan="2"><H1>捷微活动后台登录<H1>
+	
+	</td>
+</tr>
+
+<tr>
+	<td width=200>微信id：jwid</td>
+	<td>
+	  <input type="text" id="jwid" name="jwid" size="50" value=""/>
+	  <input type='submit' style='width:70px' name='' value='登录'>
+	</td>
+</tr>
+<tr>
+	<td width=200></td>
+	<td></td>
+</tr>
+
+</table>
+</form>
+</body>
+</html>

@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.jeecgframework.p3.core.common.exception.BargainException;
-import org.jeecgframework.p3.core.common.exception.ExceptionEnum;
 import org.jeecgframework.p3.core.common.utils.Constants;
 import org.jeecgframework.p3.core.common.utils.RandomUtils;
 import org.springframework.stereotype.Service;
@@ -15,9 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jeecg.p3.gzbargain.dao.GzWxActBargainAwardsDao;
 import com.jeecg.p3.gzbargain.dao.GzWxActBargainDao;
 import com.jeecg.p3.gzbargain.dao.GzWxActBargainRegistrationDao;
-import com.jeecg.p3.gzbargain.entity.GzWxActBargain;
 import com.jeecg.p3.gzbargain.entity.GzWxActBargainAwards;
 import com.jeecg.p3.gzbargain.entity.GzWxActBargainRegistration;
+import com.jeecg.p3.gzbargain.exception.GzbargainException;
+import com.jeecg.p3.gzbargain.exception.GzbargainExceptionEnum;
 import com.jeecg.p3.gzbargain.service.GzWxActBargainAwardsService;
 
 @Service("gzWxActBargainAwardsService")
@@ -49,16 +48,16 @@ public class GzWxActBargainAwardsServiceImpl implements GzWxActBargainAwardsServ
 	public void updateAwards(GzWxActBargainAwards gzWxActBargainAwards) {
 		GzWxActBargainAwards bargainAwards  = gzWxActBargainAwardsDao.get(gzWxActBargainAwards.getId());
 		if(bargainAwards==null){
-			throw new BargainException(ExceptionEnum.ACT_BARGAIN_PRIZE_INVALID);
+			throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_PRIZE_INVALID);
 		}
 		if(!bargainAwards.getOpenid().equals(gzWxActBargainAwards.getOpenid())){
-			throw new BargainException(ExceptionEnum.ACT_BARGAIN_PRIZE_INVALID);
+			throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_PRIZE_INVALID);
 		}
 		//活动结束不能再修改申请信息
 //		WxActBargain gzWxActBargain = gzWxActBargainDao.get(bargainAwards.getActId());
 //		Date currDate = new Date();
 //		if(currDate.after(gzWxActBargain.getEndTime())){
-//			throw new BargainException(ExceptionEnum.ACT_BARGAIN_END,"活动已结束，不能更新信息");
+//			throw new GzbargainException(GzbargainExceptionEnum.ACT_BARGAIN_END,"活动已结束，不能更新信息");
 //		}
 		gzWxActBargainAwardsDao.update(gzWxActBargainAwards);
 	}

@@ -3,16 +3,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
-		<groupId>org.jeecgframework</groupId>
+		<groupId>org.jeewxframework</groupId>
 		<artifactId>P3-parent</artifactId>
-		<version>2.0.0</version>
+		<version>2.0.1</version>
 	</parent>
 	
-	<groupId>org.jeecgframework</groupId>
+	
+	<groupId>org.jeewxframework</groupId>
 	<artifactId>P3-Web</artifactId>
 	<name>P3-Web</name>
 	<packaging>war</packaging>
-	
+    
 	<repositories>
 		<repository>
             <id>jeecg</id>
@@ -23,7 +24,6 @@
 			</snapshots>
         </repository>
     </repositories>
-	
 	<build>
 		<plugins>
 	       <plugin>
@@ -80,14 +80,11 @@
 		</testResources>
 	</build>
 	<dependencies>
-	
-		<!-- P3 jar -->
- 	        <dependency>
-			<groupId>org.jeecgframework</groupId>
+		<!-- P3 plugin jar -->
+ 	    <dependency>
+			<groupId>org.jeewxframework</groupId>
 			<artifactId>P3-Biz-gzbargain</artifactId>
-			<version>2.0.0</version>
-		</dependency>		
-		
+			<version>2.0.1</version>
+		</dependency>
 	</dependencies>
-
 </project>

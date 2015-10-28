@@ -21,6 +21,7 @@
 		<result column="show_rate" property="showRate" jdbcType="INTEGER"/>
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
 		<result column="product_remain_num" property="productRemainNum" jdbcType="INTEGER"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<!--
@@ -46,6 +47,7 @@
                   ,wab.show_rate                     /* 展示比例 */ 
                   ,wab.create_time                   /* 创建时间 */ 
                   ,wab.product_remain_num            /* 产品剩余数量 */ 
+                  ,wab.jwid
 		   FROM   gz_wx_act_bargain      AS wab         /* 砍价活动表 */ 
 		   WHERE
 				  id = #{id}				/* 序号 */ 
@@ -67,5 +69,140 @@
 	  	 		 		id = #{id}		/* 序号 */ 
 	 </update>
 	
+	<!--
+	方法名称: insert
+	调用路径: GzWxActBargainRecord.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+     INSERT INTO `gz_wx_act_bargain`( 
+         `id`
+        ,`act_name`     /*砍价活动名称'*/
+        ,`act_detail`   /*活动详情*/
+        ,`act_rule`     /*活动规则*/
+        ,`act_content`  /*活动内容*/
+        ,`begain_time`  /*活动开始时间*/
+        ,`end_time`     /*活动结束时间*/
+        ,`product_num`  /*产品数量*/
+        ,`product_unit` /*产品单位*/
+        ,`product_name` /*产品名称*/
+        ,`product_price`/*产品价格*/
+        ,`foucs_user_can_join` /*是否关注用户参与*/
+        ,`show_rate`    /*展示比例*/
+        ,`create_time`  /*创建时间*/
+        ,`product_remain_num` /*产品剩余数量*/
+        ,`jwid`
+        )
+      values(
+         #{id,jdbcType=VARCHAR}
+        ,#{actName,jdbcType=VARCHAR}
+        ,#{actDetail,jdbcType=VARCHAR}
+        ,#{actRule,jdbcType=VARCHAR}
+        ,#{actContent,jdbcType=VARCHAR}
+        ,#{begainTime,jdbcType=TIMESTAMP}
+        ,#{endTime,jdbcType=TIMESTAMP}
+        ,#{productNum,jdbcType=DECIMAL}
+        ,#{productUnit,jdbcType=VARCHAR}
+        ,#{productName,jdbcType=VARCHAR}
+        ,#{productPrice,jdbcType=DECIMAL}
+        ,#{foucsUserCanJoin,jdbcType=VARCHAR}
+        ,#{showRate,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP}
+        ,#{productRemainNum,jdbcType=VARCHAR}
+        ,#{jwid,jdbcType=VARCHAR}
+      )
+	</insert>
 	
+	<!--
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   gz_wx_act_bargain wab 	/* 砍价活动表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+    		 		/* 产品数量 */ 
+   		 		   wab.act_name     = #{actName}                 /* 砍价活动名称 */ 
+                  ,wab.act_detail   = #{actDetail}                 /* 活动详情 */ 
+                  ,wab.act_rule     = #{actRule}                 /* 活动规则 */ 
+                  ,wab.act_content  = #{actContent}                 /* 活动内容 */ 
+                  ,wab.begain_time  = #{begainTime}                 /* 活动开始时间 */ 
+                  ,wab.end_time     = #{endTime}                 /* 活动结束时间 */ 
+                  ,wab.product_num  = #{productNum}                 /* 产品数量 */ 
+                  ,wab.product_unit = #{productUnit}                 /* 产品单位 */ 
+                  ,wab.product_name = #{productName}                 /* 产品名称 */ 
+                  ,wab.product_price= #{productPrice}                 /* 产品价格 */ 
+                  ,wab.foucs_user_can_join = #{foucsUserCanJoin}          /* 是否关注用户参与 */ 
+                  ,wab.show_rate    = #{showRate}                 /* 展示比例 */ 
+                  ,wab.create_time  = #{createTime}                 /* 创建时间 */ 
+                  ,wab.product_remain_num  = #{productRemainNum}          /* 产品剩余数量 */ 
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	<!--
+	开发信息: 
+	处理信息: 根据ID删除一条活动记录
+	-->  
+	 <delete id="delete" parameterType="Object">
+	    delete from gz_wx_act_bargain
+	      where 
+	           id = #{id}		/* 序号 */ 
+	 </delete>
+	 
+	 <!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+		   <if test="query.actName != null and query.actName!=''">
+		     and gwab.act_name like concat(concat('%',#{query.actName}),'%')
+		   </if>
+		   <if test="query.productName != null and query.productName!=''">
+		     and gwab.product_name like concat(concat('%',#{query.productName}),'%')
+		   </if>
+		</trim>
+	</sql>
+	 
+	 
+	 <!--
+	方法名称: count
+	调用路径: GzWxActBargain.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  gz_wx_act_bargain      AS gwab      /* 砍价活动配置 */ 
+		 WHERE 1=1
+		 <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: GzWxActBargain.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="GzWxActBargain">
+		    SELECT 
+                   gwab.id                            /* ID */ 
+                  ,gwab.act_name                      /* 砍价活动名称 */ 
+                  ,gwab.act_detail                    /* 活动详情 */ 
+                  ,gwab.act_rule                      /* 活动规则 */ 
+                  ,gwab.act_content                   /* 活动内容 */ 
+                  ,gwab.begain_time                   /* 活动开始时间 */ 
+                  ,gwab.end_time                      /*  活动结束时间 */ 
+                  ,gwab.product_num                   /* 产品数量 */ 
+                  ,gwab.product_unit                  /* 产品单位 */ 
+                  ,gwab.product_name                  /* 产品名称 */ 
+                  ,gwab.product_price                 /* 产品价格 */ 
+                  ,gwab.foucs_user_can_join           /* 是否关注用户参与 */ 
+                  ,gwab.show_rate                     /* 展示比例 */ 
+                  ,gwab.create_time                   /* 创建时间 */ 
+                  ,gwab.product_remain_num            /* 产品剩余数量 */ 
+                  ,gwab.jwid                          /* 对应微信平台原始id */ 
+		FROM   	 gz_wx_act_bargain      AS gwab      /* 砍价活动配置 */ 
+		WHERE 1=1
+		  <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
 </mapper>

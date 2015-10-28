@@ -15,6 +15,7 @@
 		<result column="product_new_price" property="productNewPrice" jdbcType="DECIMAL"/>
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
 		<result column="awards_status" property="awardsStatus" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	
@@ -34,7 +35,8 @@
                   ,wabr.product_price                 /* 产品价格 */ 
                   ,wabr.product_new_price             /* 砍后价格 */ 
                   ,wabr.create_time                   /* 创建时间 */
-                  ,wabr.awards_status                 /* 领奖状态0:未领奖;1:已领奖 */  
+                  ,wabr.awards_status                 /* 领奖状态0:未领奖;1:已领奖 */ 
+                  ,wabr.jwid 
 		   FROM   gz_wx_act_bargain_registration      AS wabr      /* 砍价报名表 */ 
 		   WHERE
 				wabr.act_id = #{actId}				/* 活动id  */ 
@@ -58,6 +60,7 @@
                   ,wabr.product_new_price             /* 砍后价格 */ 
                   ,wabr.create_time                   /* 创建时间 */ 
                   ,wabr.awards_status                 /* 领奖状态0:未领奖;1:已领奖 */
+                  ,wabr.jwid
 		   FROM   gz_wx_act_bargain_registration      AS wabr      /* 砍价报名表 */ 
 		   WHERE
 				id = #{id}				/* 序号 */ 
@@ -100,6 +103,7 @@
                      ,product_new_price             /* 砍后价格 */ 
                      ,create_time                   /* 创建时间 */ 
                      ,awards_status                 /* 领奖状态0:未领奖;1:已领奖 */
+                     ,jwid                 
 					)
 			values (
 					  #{id,jdbcType=VARCHAR} 
@@ -110,7 +114,8 @@
                      ,#{productPrice,jdbcType=DECIMAL}                  /* 产品价格 */ 
                      ,#{productNewPrice,jdbcType=DECIMAL}               /* 砍后价格 */ 
                      ,#{createTime,jdbcType=TIMESTAMP}                  /* 创建时间 */
-                     ,#{awardsStatus,jdbcType=VARCHAR}                  /* 领奖状态0:未领奖;1:已领奖 */ 
+                     ,#{awardsStatus,jdbcType=VARCHAR}                  /* 领奖状态0:未领奖;1:已领奖 */
+                     ,#{jwid,jdbcType=VARCHAR} 
 					)
 	</insert>
 
@@ -147,10 +152,6 @@
 						 <if test="productNewPrice != null">
 		    		 		/* 砍后价格 */ 
 	    		 			product_new_price = #{productNewPrice,jdbcType=DECIMAL},
-						 </if>
-						 <if test="createTime != null">
-		    		 		/* 创建时间 */ 
-	    		 			create_time = #{createTime,jdbcType=TIMESTAMP},
 						 </if>
 						 <if test="awardsStatus != null">
 		    		 		/* 领奖状态0:未领奖;1:已领奖 */ 

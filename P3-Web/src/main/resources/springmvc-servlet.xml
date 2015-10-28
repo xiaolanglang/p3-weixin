@@ -18,7 +18,7 @@
     ">
 
     <!-- Spring组件扫描路径过滤 -->
-    <context:component-scan base-package="com.jeecg.p3.*.web,com.jeewx.*" use-default-filters="false">
+    <context:component-scan base-package="com.jeecg.p3.*.*.web,com.jeecg.p3.*.web,com.jeewx.*" use-default-filters="false">
     	<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/> 
     </context:component-scan>
     
@@ -28,9 +28,11 @@
     <!-- 使用应用服务器默认的Servlet处理静态资源 方案一 -->
 	<!-- <mvc:default-servlet-handler /> -->
 	<!-- 使用Spring MVC框架自己处理静态资源 方案二 -->
-	<mvc:resources location="/resources/" mapping="/resources/**"
+	<mvc:resources location="/plug-in/" mapping="/plug-in/**"
 		cache-period="864000" /><!-- 24 * 3600 * 10 -->
-    
+    <mvc:resources location="classpath:/content/" mapping="/content/**"
+		cache-period="864000" /><!-- 24 * 3600 * 10 -->
+		
     
     <!-- 注册默认转换器 --><!-- 加载DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->
 	<!-- StringHttpMessageConverter -->
@@ -165,19 +167,27 @@
         </property>
     </bean>
     
+    <!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="org.jeecgframework.p3.core.interceptors.AuthInterceptor">
+				<property name="excludeUrls">
+					<list>
+						<value>loginController.do?noAuth</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+    
     <!-- 默认首页 -->
-    <mvc:view-controller path="/" view-name="redirect:index.do"/>
+    <!-- <mvc:view-controller path="/" view-name="redirect:index.do"/> -->
     
     <!-- 读取server.properties -->
     <!-- <util:properties id="scp" location="classpath:server.properties"  local-override="true"/> -->
     
     
-    <!-- 自定义拦截器-->
-    <mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="org.jeecgframework.p3.core.ViewSessionInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>	
+
 	
 </beans>
