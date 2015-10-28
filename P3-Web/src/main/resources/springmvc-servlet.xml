@@ -28,10 +28,8 @@
     <!-- 使用应用服务器默认的Servlet处理静态资源 方案一 -->
 	<!-- <mvc:default-servlet-handler /> -->
 	<!-- 使用Spring MVC框架自己处理静态资源 方案二 -->
-	<mvc:resources location="/plug-in/" mapping="/plug-in/**"
-		cache-period="864000" /><!-- 24 * 3600 * 10 -->
-    <mvc:resources location="classpath:/content/" mapping="/content/**"
-		cache-period="864000" /><!-- 24 * 3600 * 10 -->
+	<mvc:resources location="classpath:/plug-in/" mapping="/plug-in/**" cache-period="864000" /><!-- 24 * 3600 * 10 -->
+    <mvc:resources location="classpath:/content/" mapping="/content/**" cache-period="864000" /><!-- 24 * 3600 * 10 -->
 		
     
     <!-- 注册默认转换器 --><!-- 加载DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->

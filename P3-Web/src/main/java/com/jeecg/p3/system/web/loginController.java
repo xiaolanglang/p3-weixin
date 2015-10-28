@@ -3,9 +3,11 @@ package com.jeecg.p3.system.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.velocity.VelocityContext;
 import org.jeecgframework.p3.core.common.utils.StringUtil;
 import org.jeecgframework.p3.core.logger.Logger;
 import org.jeecgframework.p3.core.logger.LoggerFactory;
+import org.jeecgframework.p3.core.util.plugin.ViewVelocity;
 import org.jeecgframework.p3.core.web.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,12 +48,20 @@ public class loginController extends BaseController{
 	   */
 	 @RequestMapping(value = "/login",method ={RequestMethod.GET, RequestMethod.POST})
 	 public ModelAndView login(String jwid,HttpServletRequest request,HttpServletResponse response){
-		 String viewName = "system/index";
+		 String viewName = "base/back/main/index.vm";
 		 ModelAndView mv = new ModelAndView();
 		 if(StringUtil.isEmpty(jwid)){
 			 viewName = "system/login";
 		 }else{
 			 request.getSession().setAttribute("jwid", jwid);
+			 mv.setViewName(viewName);
+			 VelocityContext velocityContext = new VelocityContext();
+			 try {
+				ViewVelocity.view(response,viewName,velocityContext);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
 		 }
 		 mv.setViewName(viewName);
 		 return mv;

@@ -1,7 +1,7 @@
-#parse("content/${bussPackage}/back/common/macro.vm")
+#parse("content/base/back/common/macro.vm")
 <!DOCTYPE html>
 <html lang="en">
-#parse("content/${bussPackage}/back/common/head.vm")
+#parse("content/base/back/common/head.vm")
 <body style='overflow:scroll;overflow-x:hidden'>
 	<div class="container bs-docs-container" style="width:100%;">
 		<div class="row">
