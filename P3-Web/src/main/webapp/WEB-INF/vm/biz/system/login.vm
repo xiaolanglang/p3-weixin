@@ -18,7 +18,7 @@ body {
 	margin-top: -259px; 
 	width: 378px; 
 	height: 518px;
-	background: url("../plug-in/css/images/loginBg_v01.png") left top no-repeat;}
+	background: url("../plug-in/css/images/login-p3.png") left top no-repeat;}
 h1{ margin-top: 160px; color: #0096cd; font-family: "sans-serif"; font-size: 32px;}	
 .form-signin {
   max-width: 330px;
