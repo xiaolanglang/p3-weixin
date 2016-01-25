@@ -1,4 +1,4 @@
-捷微H5营销活动平台（h5huodong.com）
+捷微H5活动开源平台（h5huodong.com）
 ==========
 特点：（采用插件模式开发H5营销活动，独立部署，解决微信活动大用户、高并发问题）
 
@@ -64,7 +64,7 @@ P3-Weixin
 	  说明：插件不能单独启动，maven方式引入到Web项目
 	  
 	
-【生成生成器】
+【代码生成器】
 
 	1.工具类：P3-Web/src/main/java/org/jeecgframework/p3/cg/util/CodeToolUtil.java
 	2.配置文件：P3-Web/src/main/resources/p3-cg-config.properties
