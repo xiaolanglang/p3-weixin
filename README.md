@@ -1,7 +1,10 @@
-捷微H5营销活动平台（以插件模式开发，H5营销活动，独立部署，解决微信活动并发压力大的问题）
+捷微H5营销活动平台（h5huodong.com）
 ==========
-P3-Weixin （JAVA 插件开发框架->松耦合、插件模式）
+特点：（采用插件模式开发H5营销活动，独立部署，解决微信活动大用户、高并发问题）
+
+P3-Weixin 
 ==========
+特点：（JAVA 插件开发框架->松耦合、插件模式）
 
 【架构说明】
 
@@ -33,6 +36,7 @@ P3-Weixin （JAVA 插件开发框架->松耦合、插件模式）
 	  
 	
 【生成生成器】
+
 	1.工具类：P3-Web/src/main/java/org/jeecgframework/p3/cg/util/CodeToolUtil.java
 	2.配置文件：P3-Web/src/main/resources/p3-cg-config.properties
 
@@ -40,7 +44,6 @@ P3-Weixin （JAVA 插件开发框架->松耦合、插件模式）
 【开发文档】
 
 ![github](http://img.blog.csdn.net/20151028163509595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
-	
 * [  文档下载来点我](http://www.jeecg.org/forum.php?mod=forumdisplay&fid=191)
     
 	  
