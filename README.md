@@ -11,6 +11,28 @@ P3-Weixin
 ![github](http://www.jeecg.org/data/attachment/forum/201601/25/180314mjvputsot6hhtvoa.jpg "jeewx521")
 
 
+### 砍价活动-效果图
+![github](http://www.jeecg.org/data/attachment/forum/201601/25/180710anjfgtn677nojgg0.png "jeecg")
+### 九宫格活动-效果图
+![github](http://www.jeecg.org/data/attachment/forum/201601/25/180716vp55nguk5ggwqngw.png "jeecg")
+### 斧头帮砍价-效果图
+![github](http://www.jeecg.org/data/attachment/forum/201601/25/180500iwpg1agqm778wggp.png "jeecg")
+### 摇一摇送卡券-效果图
+![github](http://www.jeecg.org/data/attachment/forum/201601/25/180718zwfdl9ml1a15w8jf.png "jeecg")
+
+
+【开发文档】
+
+![github](http://img.blog.csdn.net/20151028163509595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
+* [  文档下载来点我](http://www.jeecg.org/forum.php?mod=forumdisplay&fid=191)
+
+
+### 微信H5活动插件列表（陆续更新..）
+	  1.微信砍价活动   P3-Biz-gzbargain
+	  2.摇一摇送卡券   P3-Biz-shaketicket
+	  3.九宫格活动     P3-Biz-jiugongge
+	  4.斧头帮砍价     P3-Biz-commonftb
+	  
 【架构说明】
 
     1.P3-weixin 采用SpringMvc + Mybatis + Velocity + Maven(构建) 框架技术
@@ -45,36 +67,13 @@ P3-Weixin
 	1.工具类：P3-Web/src/main/java/org/jeecgframework/p3/cg/util/CodeToolUtil.java
 	2.配置文件：P3-Web/src/main/resources/p3-cg-config.properties
 
-
-【开发文档】
-
-![github](http://img.blog.csdn.net/20151028163509595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
-* [  文档下载来点我](http://www.jeecg.org/forum.php?mod=forumdisplay&fid=191)
-    
-	  
-### 微信H5活动插件列表（陆续更新..）
-	  1.微信砍价活动   P3-Biz-gzbargain
-	  2.摇一摇送卡券   P3-Biz-shaketicket
-	  3.九宫格活动     P3-Biz-jiugongge
-	  4.斧头帮砍价     P3-Biz-commonftb
-	  
-	  
+      
 ### 联系我们
 
 * [Jeewx捷微官网](http://www.jeewx.com)
 * [Jeewx技术论坛](http://www.jeecg.org)
 *  交流QQ群: 289709451
 
-
-
-### 砍价活动-效果图
-![github](http://www.jeecg.org/data/attachment/forum/201601/25/180710anjfgtn677nojgg0.png "jeecg")
-### 九宫格活动-效果图
-![github](http://www.jeecg.org/data/attachment/forum/201601/25/180716vp55nguk5ggwqngw.png "jeecg")
-### 斧头帮砍价-效果图
-![github](http://www.jeecg.org/data/attachment/forum/201601/25/180500iwpg1agqm778wggp.png "jeecg")
-### 摇一摇送卡券-效果图
-![github](http://www.jeecg.org/data/attachment/forum/201601/25/180718zwfdl9ml1a15w8jf.png "jeecg")
 
 ### H5活动营销平台（后台）
 ![github](http://img.blog.csdn.net/20151028202143675?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
