@@ -10,7 +10,13 @@ P3-Weixin
 ==========
 ![github](http://www.jeecg.org/data/attachment/forum/201601/25/180314mjvputsot6hhtvoa.jpg "jeewx521")
 
-
+### 微信H5活动插件列表（陆续更新..）
+	  1.微信砍价活动   P3-Biz-gzbargain
+	  2.摇一摇送卡券   P3-Biz-shaketicket
+	  3.九宫格活动     P3-Biz-jiugongge
+	  4.斧头帮砍价     P3-Biz-commonftb
+	  
+	  
 ### 砍价活动-效果图
 ![github](http://www.jeecg.org/data/attachment/forum/201601/25/180710anjfgtn677nojgg0.png "jeecg")
 ### 九宫格活动-效果图
@@ -27,11 +33,7 @@ P3-Weixin
 * [  文档下载来点我](http://www.jeecg.org/forum.php?mod=forumdisplay&fid=191)
 
 
-### 微信H5活动插件列表（陆续更新..）
-	  1.微信砍价活动   P3-Biz-gzbargain
-	  2.摇一摇送卡券   P3-Biz-shaketicket
-	  3.九宫格活动     P3-Biz-jiugongge
-	  4.斧头帮砍价     P3-Biz-commonftb
+
 	  
 【架构说明】
 
