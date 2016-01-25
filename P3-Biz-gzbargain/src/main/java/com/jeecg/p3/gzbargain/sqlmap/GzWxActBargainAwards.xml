@@ -8,6 +8,7 @@
 	<resultMap id="GzWxActBargainAwards" type="com.jeecg.p3.gzbargain.entity.GzWxActBargainAwards" >
 		<result column="id" property="id" jdbcType="VARCHAR"/>
 		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="awards_seq" property="awardsSeq" jdbcType="INTEGER"/>
 		<result column="openid" property="openid" jdbcType="VARCHAR"/>
 		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
 		<result column="real_name" property="realName" jdbcType="VARCHAR"/>
@@ -26,7 +27,7 @@
 	处理信息: 根据活动id获取奖品最大的序号
 	-->
 	<select id="getMaxAwardsSeq" resultType="java.lang.Integer"  parameterType="Object">
-		SELECT max(awards_seq)  FROM  gz_wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
+		SELECT max(awards_seq)  FROM  wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
 		 WHERE act_id = #{value}
 	</select>
 	
@@ -38,7 +39,7 @@
 	处理信息: 保存信息
 	-->
 	<insert id="insert" parameterType="Object" >
-	  INSERT  INTO  gz_wx_act_bargain_awards   /* 领取奖品记录表 */  
+	  INSERT  INTO  wx_act_bargain_awards   /* 领取奖品记录表 */  
 					(	
 					  id
                      ,openid                        /* 兑奖人openid */
@@ -75,7 +76,7 @@
 	处理信息: 修改信息
 	-->  
 	 <update id="update" parameterType="Object" >
-	  UPDATE   gz_wx_act_bargain_awards  	/* 领取奖品记录表 */
+	  UPDATE   wx_act_bargain_awards  	/* 领取奖品记录表 */
 	  			<trim   prefix="SET" suffixOverrides="," >
 						 
 						 <if test="realName != null">
@@ -104,6 +105,7 @@
 	<select id="get" parameterType="Object"  resultMap="GzWxActBargainAwards">
 		   SELECT   
                    waba.id                            /*  */ 
+                  ,waba.awards_seq                        /* 领奖序号 */
                   ,waba.openid                        /* 兑奖人openid */ 
                   ,waba.nickname                      /* 兑奖人昵称 */ 
                   ,waba.act_id                        /* 活动id */ 
@@ -113,7 +115,7 @@
                   ,waba.awards_code                   /* 兑奖码 */ 
                   ,waba.create_time                   /* 创建时间 */ 
                   ,waba.jwid
-		   FROM   gz_wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
+		   FROM   wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
 		   WHERE
 				id = #{id}				/* 序号 */ 
 	</select>
@@ -127,6 +129,7 @@
 	<select id="queryBargainAwardsByActIdAndOpenid" parameterType="Object"  resultMap="GzWxActBargainAwards">
 		   SELECT   
                    waba.id                            /*  */ 
+                  ,waba.awards_seq                        /* 领奖序号 */
                   ,waba.openid                        /* 兑奖人openid */ 
                   ,waba.nickname                      /* 兑奖人昵称 */ 
                   ,waba.act_id                        /* 活动id */ 
@@ -136,12 +139,101 @@
                   ,waba.awards_code                   /* 兑奖码 */ 
                   ,waba.create_time                   /* 创建时间 */
                   ,waba.jwid 
-		   FROM   gz_wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
+		   FROM   wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
 		   WHERE
 				waba.act_id = #{actId}				
 				and  waba.openid = #{openid}	
 	</select>
 	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.actId != null and query.actId != ''" >
+	  		 		/* 活动id */
+			    	AND waba.act_id =  #{query.actId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.awardsSeq != null and query.awardsSeq != ''" >
+	  		 		/* 奖品序号 */
+			    	AND waba.awards_seq =  #{query.awardsSeq,jdbcType=INTEGER}
+				 </if>
+				 <if test="query.openid != null and query.openid != ''" >
+	  		 		/* 兑奖人openid */
+			    	AND waba.openid =  #{query.openid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.nickname != null and query.nickname != ''" >
+	  		 		/* 兑奖人昵称 */
+			    	AND waba.nickname =  #{query.nickname,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.realName != null and query.realName != ''" >
+	  		 		/* 真实姓名 */
+			    	AND waba.real_name =  #{query.realName,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.mobile != null and query.mobile != ''" >
+	  		 		/* 手机号 */
+			    	AND waba.mobile =  #{query.mobile,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.address != null and query.address != ''" >
+	  		 		/* 详细地址 */
+			    	AND waba.address =  #{query.address,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.awardsCode != null and query.awardsCode != ''" >
+	  		 		/* 兑奖码 */
+			    	AND waba.awards_code =  #{query.awardsCode,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.createTime != null and query.createTime != ''" >
+	  		 		/* 创建时间 */
+			    	AND waba.create_time =  #{query.createTime,jdbcType=TIMESTAMP}
+				 </if>
+		</trim>
+	</sql>
+		
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.gzbargain.entity.WxActBargainAwards.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_bargain_awards 	/* 领取奖品记录表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
 	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.gzbargain.entity.WxActBargainAwards.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.gzbargain.entity.WxActBargainAwards.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="GzWxActBargainAwards">
+		    SELECT 
+                   waba.id                            /*  */ 
+                  ,waba.act_id                        /* 活动id */ 
+                  ,waba.awards_seq                    /* 奖品序号 */ 
+                  ,waba.openid                        /* 兑奖人openid */ 
+                  ,waba.nickname                      /* 兑奖人昵称 */ 
+                  ,waba.real_name                     /* 真实姓名 */ 
+                  ,waba.mobile                        /* 手机号 */ 
+                  ,waba.address                       /* 详细地址 */ 
+                  ,waba.awards_code                   /* 兑奖码 */ 
+                  ,waba.create_time                   /* 创建时间 */ 
+		FROM   	 wx_act_bargain_awards      AS waba      /* 领取奖品记录表 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
 	
 </mapper>

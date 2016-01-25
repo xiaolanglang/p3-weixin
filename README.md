@@ -3,7 +3,7 @@ Jeewx 微信插件开发框架，松耦合开发微信HTML5活动
 P3-Weixin （JAVA SAAS模式插件开发利器）
 ==========
 
-【架构技术介绍】
+【架构说明】
 
     1.P3-weixin 采用SpringMvc + Mybatis + Velocity + Maven(构建) 框架技术
     2.插件引入方式
@@ -23,7 +23,7 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 	  src/main/resources/db.properties
 	  
 	  
-【开发环境入门】
+【开发入门】
 
 	1.Eclipse + Maven + JDK7
     2.项目以Maven方式导入eclipse
@@ -31,18 +31,12 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
       活动访问地址：http://localhost:8080/P3-Web/gzbargain/toIndex.do?actId=actgzbargain00001&openid=oR0jFt_DTsAUJebWqGeq3A1VWfRw&subscribe=1
 	  说明：插件不能单独启动，maven方式引入到Web项目
 	  
-【插件项目生成】
-	  
-	工具类：P3-Project-Generator/src/main/java/GeneratorMain.java
 	
-	public static void main(String[] args) throws Exception {
-		//项目名
-		String projectName = "Gogo";//项目名称 ：P3-Biz-{自定义模块名}
-		GeneratorFactory.doMake(projectName);
-	}
-	
-	项目名：P3-Biz-{ProjectName}
-	  
+【生成生成器】
+   工具类：P3-Web/src/main/java/org/jeecgframework/p3/cg/util/CodeToolUtil.java
+   配置文件：P3-Web/src/main/resources/p3-cg-config.properties
+
+
 【开发文档】
 
 ![github](http://img.blog.csdn.net/20151028163509595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
@@ -50,28 +44,31 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 * [  文档下载来点我](http://www.jeecg.org/forum.php?mod=forumdisplay&fid=191)
     
 	  
-### 微信插件说明（陆续更新...）
+### 微信H5活动插件列表（陆续更新..）
 	  1.微信砍价活动   P3-Biz-gzbargain
+	  2.摇一摇送卡券   P3-Biz-shaketicket
+	  3.九宫格活动     P3-Biz-jiugongge
+	  4.斧头帮砍价     P3-Biz-commonftb
 	  
 	  
-### Jeecg开源社区
+### 联系我们
 
-* [Jeewx 捷微官网](http://www.jeewx.com)
-* [Jeewx 捷微演示](http://www.jeewx.com/jeewx)
-* [Jeewx 技术论坛](http://www.jeecg.org)
-*  技术QQ群: 289709451
-
+* [Jeewx捷微官网](http://www.jeewx.com)
+* [Jeewx技术论坛](http://www.jeecg.org)
+*  技术交流QQ群: 289709451
 
 
 
-
-### 砍价活动演示
+### 砍价活动
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150241ck1hm1l6h1g5hgl2.png "jeecg")
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150827arn602ga2f2x323g.png "jeecg")
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150453lzotkxnol9q26tfq.png "jeecg")
 ![github](http://www.jeecg.org/data/attachment/forum/201509/15/150630wgkz68gsobbkzopq.png "jeecg")
 
+### 九宫格活动
+### 斧头帮砍价
+### 摇一摇送卡券
 
-### P3后台管理演示
+### H5活动营销平台-演示
 ![github](http://img.blog.csdn.net/20151028202143675?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
 ![github](http://img.blog.csdn.net/20151028202206676?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")

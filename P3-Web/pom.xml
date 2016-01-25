@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>org.jeewxframework</groupId>
 		<artifactId>P3-parent</artifactId>
-		<version>2.0.1</version>
+		<version>2.1-SNAPSHOT</version>
 	</parent>
 	
-	
+	<description>P3启动工程</description>
 	<groupId>org.jeewxframework</groupId>
 	<artifactId>P3-Web</artifactId>
 	<name>P3-Web</name>
@@ -23,7 +23,16 @@
 				<enabled>false</enabled>
 			</snapshots>
         </repository>
+        <repository>
+            <id>jeecg-snapshots</id>
+            <name>jeecg-snapshots Repository</name>
+            <url>http://maven.jeecg.org/nexus/content/repositories/snapshots</url>
+            <snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+    	</repository>
     </repositories>
+    
 	<build>
 		<plugins>
 	       <plugin>
@@ -80,7 +89,31 @@
 		</testResources>
 	</build>
 	<dependencies>
-		<!-- P3 plugin jar -->
+		<!-- P3 base jar -->
+ 	    <dependency>
+			<groupId>org.jeewxframework</groupId>
+			<artifactId>P3-Base-system</artifactId>
+			<version>2.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 斧头帮砍价通用版 -->
+		 <dependency>
+			<groupId>org.jeewxframework</groupId>
+			<artifactId>P3-Biz-commonftb</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<!--  九宫格 -->
+		 <dependency>
+			<groupId>org.jeewxframework</groupId>
+			<artifactId>P3-Biz-jiugongge</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<!--  摇一摇送卡券-->
+ 	    <dependency>
+			<groupId>org.jeewxframework</groupId>
+			<artifactId>P3-Biz-shaketicket</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<!--  音乐节砍价-->
  	    <dependency>
 			<groupId>org.jeewxframework</groupId>
 			<artifactId>P3-Biz-gzbargain</artifactId>

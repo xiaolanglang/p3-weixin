@@ -17,21 +17,21 @@
 									    </div>
 									</div>
 									<div class="form-group mno">
-									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动详情</label>
+									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动描述</label>
 									    <div class="col-sm-8">
 									      <textarea rows="5" id="actDetail" class="form-control" name="actDetail" datatype="*">$!{gzWxActBargain.actDetail}</textarea>
 									    </div>
 									</div>
 									<div class="form-group mno">
-									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动规则</label>
-									    <div class="col-sm-8">
-									      <input type="text" value="$!{gzWxActBargain.actRule}" name="actRule" id="actRule" class="form-control" datatype="*"/>
-									    </div>
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">模版简称</label>
+												    <div class="col-sm-8">
+												      <input type="text" value="$!{gzWxActBargain.template}" name="template" id="template" class="form-control"/>
+												    </div>
 									</div>
 									<div class="form-group mno">
-									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动内容</label>
+									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">砍价规则(砍价Min,砍价Max,小数位)</label>
 									    <div class="col-sm-8">
-									      <textarea rows="3" id="actContent" class="form-control" name="actContent" datatype="*">$!{gzWxActBargain.actContent}</textarea>
+									      <input type="text" value="$!{gzWxActBargain.actRule}" name="actRule" id="actRule" class="form-control" datatype="*"/>
 									    </div>
 									</div>
 									<div class="form-group mno">
@@ -47,9 +47,15 @@
 									    </div>
 									</div>
 									<div class="form-group mno">
-									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品数量</label>
+									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品名称</label>
 									    <div class="col-sm-8">
-									      <input type="text" value="$!{gzWxActBargain.productNum}" name="productNum" id="productNum" class="form-control" datatype="n" />
+									      <input type="text" value="$!{gzWxActBargain.productName}" name="productName" id="productName" class="form-control" datatype="*"/>
+									    </div>
+									</div>
+									<div class="form-group mno">
+									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品图片</label>
+									    <div class="col-sm-8">
+									      <input type="text" value="$!{gzWxActBargain.productImg}" name="productImg" id="productImg" class="form-control" datatype="*"/>
 									    </div>
 									</div>
 									<div class="form-group mno">
@@ -59,15 +65,27 @@
 									    </div>
 									</div>
 									<div class="form-group mno">
-									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品名称</label>
-									    <div class="col-sm-8">
-									      <input type="text" value="$!{gzWxActBargain.productName}" name="productName" id="productName" class="form-control" datatype="*"/>
-									    </div>
-									</div>
-									<div class="form-group mno">
 									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品价格</label>
 									    <div class="col-sm-8">
 									      <input type="text" value="$!{gzWxActBargain.productPrice}" name="productPrice" id="productPrice" class="form-control" datatype="/^(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/" errormsg="金额最多保留两位小数"/>
+									    </div>
+									</div>
+									<div class="form-group mno">
+									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">砍价最低金额</label>
+									    <div class="col-sm-8">
+									      <input type="text" value="$!{gzWxActBargain.cutMinPrice}" name="cutMinPrice" id="cutMinPrice" class="form-control" datatype="/^(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/" errormsg="金额最多保留两位小数"/>
+									    </div>
+									</div>
+									<div class="form-group mno">
+									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品数量</label>
+									    <div class="col-sm-8">
+									      <input type="text" value="$!{gzWxActBargain.productNum}" name="productNum" id="productNum" class="form-control" datatype="n" />
+									    </div>
+									</div>
+									<div class="form-group mno">
+									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品剩余数量</label>
+									    <div class="col-sm-8">
+									      <input type="text" value="$!{gzWxActBargain.productRemainNum}" name="productRemainNum" id="productRemainNum" class="form-control" datatype="n"/>
 									    </div>
 									</div>
 									<div class="form-group mno">
@@ -77,10 +95,13 @@
 									    </div>
 									</div>
 									<div class="form-group mno">
-									    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品剩余数量</label>
-									    <div class="col-sm-8">
-									      <input type="text" value="$!{gzWxActBargain.productRemainNum}" name="productRemainNum" id="productRemainNum" class="form-control" datatype="n"/>
-									    </div>
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否关注可参加</label>
+												    <div class="col-sm-8">
+												      <select name="foucsUserCanJoin" id="foucsUserCanJoin"  value="$!{gzWxActBargain.foucsUserCanJoin}" class="form-control" >
+												      		<option value="0" #if("0" == "$!{gzWxActBargain.foucsUserCanJoin}")selected#end>否</option>
+												      		<option value="1" #if("1" == "$!{gzWxActBargain.foucsUserCanJoin}")selected#end>是</option>
+												      </select>
+												    </div>
 									</div>
 									<div class="form-group mno">
 											<div class="col-sm-offset-1 col-sm-6">

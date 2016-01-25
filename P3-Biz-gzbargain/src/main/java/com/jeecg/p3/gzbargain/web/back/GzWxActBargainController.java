@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.velocity.VelocityContext;
 import org.jeecgframework.p3.core.common.utils.AjaxJson;
 import org.jeecgframework.p3.core.util.SystemTools;
+import org.jeecgframework.p3.core.util.plugin.ContextHolderUtils;
 import org.jeecgframework.p3.core.util.plugin.ViewVelocity;
 import org.jeecgframework.p3.core.utils.common.PageQuery;
 import org.jeecgframework.p3.core.web.BaseController;
@@ -42,15 +43,22 @@ public class GzWxActBargainController extends BaseController{
 public void list(@ModelAttribute GzWxActBargain query,HttpServletResponse response,
 			@RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) throws Exception{
-	 	PageQuery<GzWxActBargain> pageQuery = new PageQuery<GzWxActBargain>();
-	 	pageQuery.setPageNo(pageNo);
-	 	pageQuery.setPageSize(pageSize);
-	 	VelocityContext velocityContext = new VelocityContext();
-		pageQuery.setQuery(query);
-		velocityContext.put("query",query);
-		velocityContext.put("pageInfos",SystemTools.convertPaginatedList(gzWxActBargainService.queryPageList(pageQuery)));
-		String viewName = "gzbargain/back/gzWxActBargain-list.vm";
-		ViewVelocity.view(response,viewName,velocityContext);
+	 	try {
+			PageQuery<GzWxActBargain> pageQuery = new PageQuery<GzWxActBargain>();
+			pageQuery.setPageNo(pageNo);
+			pageQuery.setPageSize(pageSize);
+			VelocityContext velocityContext = new VelocityContext();
+			String jwid =  ContextHolderUtils.getSession().getAttribute("jwid").toString();
+		 	query.setJwid(jwid);
+			pageQuery.setQuery(query);
+			velocityContext.put("query",query);
+			velocityContext.put("pageInfos",SystemTools.convertPaginatedList(gzWxActBargainService.queryPageList(pageQuery)));
+			String viewName = "gzbargain/back/gzWxActBargain-list.vm";
+			ViewVelocity.view(response,viewName,velocityContext);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 }
 
  /**
@@ -59,11 +67,16 @@ public void list(@ModelAttribute GzWxActBargain query,HttpServletResponse respon
   */
 @RequestMapping(value="toDetail",method = RequestMethod.GET)
 public void gzWxActBargainDetail(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response)throws Exception{
-		VelocityContext velocityContext = new VelocityContext();
-		String viewName = "gzbargain/back/gzWxActBargain-detail.vm";
-		GzWxActBargain gzWxActBargain = gzWxActBargainService.queryById(id);
-		velocityContext.put("gzWxActBargain",gzWxActBargain);
-		ViewVelocity.view(response,viewName,velocityContext);
+		try {
+			VelocityContext velocityContext = new VelocityContext();
+			String viewName = "gzbargain/back/gzWxActBargain-detail.vm";
+			GzWxActBargain gzWxActBargain = gzWxActBargainService.queryById(id);
+			velocityContext.put("gzWxActBargain",gzWxActBargain);
+			ViewVelocity.view(response,viewName,velocityContext);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 }
 
 /**
@@ -101,11 +114,16 @@ public AjaxJson doAdd(@ModelAttribute GzWxActBargain gzWxActBargain){
  */
 @RequestMapping(value="toEdit",method = RequestMethod.GET)
 public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response) throws Exception{
-		 VelocityContext velocityContext = new VelocityContext();
-		 GzWxActBargain gzWxActBargain = gzWxActBargainService.queryById(id);
-		 velocityContext.put("gzWxActBargain",gzWxActBargain);
-		 String viewName = "gzbargain/back/gzWxActBargain-edit.vm";
-		 ViewVelocity.view(response,viewName,velocityContext);
+		 try {
+			VelocityContext velocityContext = new VelocityContext();
+			 GzWxActBargain gzWxActBargain = gzWxActBargainService.queryById(id);
+			 velocityContext.put("gzWxActBargain",gzWxActBargain);
+			 String viewName = "gzbargain/back/gzWxActBargain-edit.vm";
+			 ViewVelocity.view(response,viewName,velocityContext);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 }
 
 /**

@@ -38,7 +38,7 @@ public class ${className}Controller extends BaseController{
   * @return
   */
 @RequestMapping(value="list",method = {RequestMethod.GET,RequestMethod.POST})
-public void list(@ModelAttribute ${className} query,HttpServletResponse response,
+public void list(@ModelAttribute ${className} query,HttpServletResponse response,HttpServletRequest request,
 			@RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) throws Exception{
 	 	PageQuery<${className}> pageQuery = new PageQuery<${className}>();
@@ -46,10 +46,10 @@ public void list(@ModelAttribute ${className} query,HttpServletResponse response
 	 	pageQuery.setPageSize(pageSize);
 	 	VelocityContext velocityContext = new VelocityContext();
 		pageQuery.setQuery(query);
-		velocityContext.put("query",query);
+		velocityContext.put("${lowerName}",query);
 		velocityContext.put("pageInfos",SystemTools.convertPaginatedList(${lowerName}Service.queryPageList(pageQuery)));
 		String viewName = "${bussPackage}/back/${lowerName}-list.vm";
-		ViewVelocity.view(response,viewName,velocityContext);
+		ViewVelocity.view(request,response,viewName,velocityContext);
 }
 
  /**
@@ -57,12 +57,12 @@ public void list(@ModelAttribute ${className} query,HttpServletResponse response
   * @return
   */
 @RequestMapping(value="toDetail",method = RequestMethod.GET)
-public void ${lowerName}Detail(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response)throws Exception{
+public void ${lowerName}Detail(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request)throws Exception{
 		VelocityContext velocityContext = new VelocityContext();
 		String viewName = "${bussPackage}/back/${lowerName}-detail.vm";
 		${className} ${lowerName} = ${lowerName}Service.queryById(id);
 		velocityContext.put("${lowerName}",${lowerName});
-		ViewVelocity.view(response,viewName,velocityContext);
+		ViewVelocity.view(request,response,viewName,velocityContext);
 }
 
 /**
@@ -73,7 +73,7 @@ public void ${lowerName}Detail(@RequestParam(required = true, value = "id" ) Str
 public void toAddDialog(HttpServletRequest request,HttpServletResponse response,ModelMap model)throws Exception{
 	 VelocityContext velocityContext = new VelocityContext();
 	 String viewName = "${bussPackage}/back/${lowerName}-add.vm";
-	 ViewVelocity.view(response,viewName,velocityContext);
+	 ViewVelocity.view(request,response,viewName,velocityContext);
 }
 
 /**
@@ -99,12 +99,12 @@ public AjaxJson doAdd(@ModelAttribute ${className} ${lowerName}){
  * @return
  */
 @RequestMapping(value="toEdit",method = RequestMethod.GET)
-public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response) throws Exception{
+public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request) throws Exception{
 		 VelocityContext velocityContext = new VelocityContext();
 		 ${className} ${lowerName} = ${lowerName}Service.queryById(id);
 		 velocityContext.put("${lowerName}",${lowerName});
 		 String viewName = "${bussPackage}/back/${lowerName}-edit.vm";
-		 ViewVelocity.view(response,viewName,velocityContext);
+		 ViewVelocity.view(request,response,viewName,velocityContext);
 }
 
 /**

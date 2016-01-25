@@ -30,6 +30,10 @@ public interface GzWxActBargainAwardsDao extends GenericDao<GzWxActBargainAwards
 	 */
 	public List<GzWxActBargainAwards> queryBargainAwardsByActIdAndOpenid(String actId,String openid);
 	
+    public Integer count(PageQuery<GzWxActBargainAwards> pageQuery);
+	
+	public List<GzWxActBargainAwards> queryPageList(PageQuery<GzWxActBargainAwards> pageQuery,Integer itemCount);
+	
 	
 }
 

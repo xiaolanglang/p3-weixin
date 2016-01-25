@@ -33,7 +33,7 @@
                   ,wabr.curr_price                    /*  */ 
                   ,wabr.create_time                   /* 创建时间 */ 
                   ,wabr.jwid
-		FROM   	 gz_wx_act_bargain_record      AS wabr   /* 砍价帮砍记录表 */ 
+		FROM   	 wx_act_bargain_record      AS wabr   /* 砍价帮砍记录表 */ 
 		WHERE wabr.registration_id = #{value}
 		order by wabr.create_time desc
 	</select>
@@ -54,7 +54,7 @@
                   ,wabr.curr_price                    /*  */ 
                   ,wabr.create_time                   /* 创建时间 */ 
                   ,wabr.jwid
-		FROM   	 gz_wx_act_bargain_record      AS wabr   /* 砍价帮砍记录表 */ 
+		FROM   	 wx_act_bargain_record      AS wabr   /* 砍价帮砍记录表 */ 
 		WHERE 	wabr.registration_id = #{registrationId}
 			and wabr.openid = #{openid}
 	</select>
@@ -66,7 +66,7 @@
 	处理信息: 保存信息
 	-->
 	<insert id="insert" parameterType="Object" >
-	  INSERT  INTO  gz_wx_act_bargain_record   /* 砍价帮砍记录表 */  
+	  INSERT  INTO  wx_act_bargain_record   /* 砍价帮砍记录表 */  
 					(	
 					  id
                      ,registration_id               /* 报名id */ 
@@ -97,7 +97,7 @@
 	处理信息: 修改信息
 	-->  
 	 <update id="update" parameterType="Object" >
-	  UPDATE   gz_wx_act_bargain_record  	/* 砍价帮砍记录表 */
+	  UPDATE   wx_act_bargain_record  	/* 砍价帮砍记录表 */
 	  			<trim   prefix="SET" suffixOverrides="," >
 						 <if test="registrationId != null">
 		    		 		/* 报名id */ 
@@ -144,7 +144,7 @@
                   ,wabr.curr_price                    /*  */ 
                   ,wabr.create_time                   /* 创建时间 */ 
                   ,wabr.jwid
-		   FROM   gz_wx_act_bargain_record      AS wabr      /* 砍价帮砍记录表 */ 
+		   FROM   wx_act_bargain_record      AS wabr      /* 砍价帮砍记录表 */ 
 		   WHERE
 				id = #{id}				/* 序号 */ 
 	</select>

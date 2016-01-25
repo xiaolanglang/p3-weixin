@@ -3,6 +3,7 @@ package com.jeecg.p3.gzbargain.service;
 import java.util.List;
 
 import com.jeecg.p3.gzbargain.entity.GzWxActBargainRecord;
+import com.jeecg.p3.gzbargain.entity.GzWxActBargainRegistration;
 
 /**
  * 描述：砍价帮砍记录
@@ -31,7 +32,7 @@ public interface GzWxActBargainRecordService {
 	 * 砍价操作
 	 * @param gzWxActBargainRecord
 	 */
-	public void bargain(GzWxActBargainRecord gzWxActBargainRecord);
+	public String bargain(GzWxActBargainRegistration bargainRegistration,GzWxActBargainRecord gzWxActBargainRecord);
 	
 }
 

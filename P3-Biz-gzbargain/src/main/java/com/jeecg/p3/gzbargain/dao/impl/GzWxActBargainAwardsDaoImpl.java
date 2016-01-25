@@ -37,6 +37,17 @@ public class GzWxActBargainAwardsDaoImpl extends GenericDaoDefault<GzWxActBargai
 		return (List<GzWxActBargainAwards>)super.query("queryBargainAwardsByActIdAndOpenid",param);
 	}
 
+	@Override
+	public Integer count(PageQuery<GzWxActBargainAwards> pageQuery) {
+		return (Integer) super.queryOne("count",pageQuery);
+	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<GzWxActBargainAwards> queryPageList(
+			PageQuery<GzWxActBargainAwards> pageQuery,Integer itemCount) {
+		PageQueryWrapper<GzWxActBargainAwards> wrapper = new PageQueryWrapper<GzWxActBargainAwards>(pageQuery.getPageNo(), pageQuery.getPageSize(),itemCount, pageQuery.getQuery());
+		return (List<GzWxActBargainAwards>)super.query("queryPageList",wrapper);
+	}
 }
 

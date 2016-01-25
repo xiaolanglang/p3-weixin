@@ -7,6 +7,9 @@ import javax.annotation.Resource;
 
 import org.jeecgframework.p3.core.common.utils.Constants;
 import org.jeecgframework.p3.core.common.utils.RandomUtils;
+import org.jeecgframework.p3.core.utils.common.PageList;
+import org.jeecgframework.p3.core.utils.common.PageQuery;
+import org.jeecgframework.p3.core.utils.common.Pagenation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,7 +93,38 @@ public class GzWxActBargainAwardsServiceImpl implements GzWxActBargainAwardsServ
 		return gzWxActBargainAwardsDao.queryBargainAwardsByActIdAndOpenid(actId, openid);
 	}
 
+	@Override
+	public void doAdd(GzWxActBargainAwards wxActBargainAwards) {
+		gzWxActBargainAwardsDao.add(wxActBargainAwards);
+	}
 
+	@Override
+	public void doEdit(GzWxActBargainAwards wxActBargainAwards) {
+		gzWxActBargainAwardsDao.update(wxActBargainAwards);
+	}
+
+	@Override
+	public void doDelete(String id) {
+		gzWxActBargainAwardsDao.delete(id);
+	}
+
+	@Override
+	public GzWxActBargainAwards queryById(String id) {
+		GzWxActBargainAwards wxActBargainAwards  = gzWxActBargainAwardsDao.get(id);
+		return wxActBargainAwards;
+	}
+
+	@Override
+	public PageList<GzWxActBargainAwards> queryPageList(
+		PageQuery<GzWxActBargainAwards> pageQuery) {
+		PageList<GzWxActBargainAwards> result = new PageList<GzWxActBargainAwards>();
+		Integer itemCount = gzWxActBargainAwardsDao.count(pageQuery);
+		List<GzWxActBargainAwards> list = gzWxActBargainAwardsDao.queryPageList(pageQuery,itemCount);
+		Pagenation pagenation = new Pagenation(pageQuery.getPageNo(), itemCount, pageQuery.getPageSize());
+		result.setPagenation(pagenation);
+		result.setValues(list);
+		return result;
+	}
 
 
 

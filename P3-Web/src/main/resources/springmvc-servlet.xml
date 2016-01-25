@@ -30,6 +30,8 @@
 	<!-- 使用Spring MVC框架自己处理静态资源 方案二 -->
 	<mvc:resources location="classpath:/plug-in/" mapping="/plug-in/**" cache-period="864000" /><!-- 24 * 3600 * 10 -->
     <mvc:resources location="classpath:/content/" mapping="/content/**" cache-period="864000" /><!-- 24 * 3600 * 10 -->
+    <mvc:resources location="/upload/" mapping="/upload/**" cache-period="864000" /><!-- 24 * 3600 * 10 -->
+    <mvc:resources location="/template/" mapping="/template/**" cache-period="864000" /><!-- 24 * 3600 * 10 -->
 		
     
     <!-- 注册默认转换器 --><!-- 加载DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->
@@ -86,60 +88,6 @@
         </property>
     </bean>
     
-    <!-- velocity环境配置 -->
-    <bean id="velocityConfig"
-          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
-        <property name="velocityProperties">
-            <props>
-                <prop key="input.encoding">UTF-8</prop>
-                <prop key="output.encoding">UTF-8</prop>
-                <prop key="contentType">text/html;charset=UTF-8</prop>
-                <prop key="velocimacro.library">macro.vm</prop>
-            </props>
-        </property>
-    </bean>
-    
-    <!-- velocity视图解析器 -->
-    <bean id="velocityViewResolver"
-          class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
-        <property name="layoutUrl" value="layout/content.vm"/>
-        <property name="cache" value="false"/>
-        <property name="prefix" value="biz/"/>
-        <property name="suffix" value=".vm"/>
-        <property name="exposeSpringMacroHelpers" value="true"/>
-        <property name="dateToolAttribute" value="dateTool"/>
-        <property name="toolboxConfigLocation" value="/WEB-INF/velocity-toolbox.xml" />
-        <property name="numberToolAttribute" value="numberTool"/>
-        <!-- Merge urlBuilderMap to view context for convenience. You can put your tools which must be thread safe. -->
-        <property name="contentType" value="text/html;charset=UTF-8"/>
-    </bean>
-
-	<!-- 使用内容协商来实现多视图 -->
-    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <property name="defaultContentType" value="text/html"/>
-        <!-- not by accept header -->
-        <property name="ignoreAcceptHeader" value="true"/>
-        <!-- by extension -->
-        <property name="mediaTypes">
-            <map>
-                <entry key="xml" value="application/xml"/>
-                <entry key="json" value="application/json"/>
-            </map>
-        </property>
-        <property name="viewResolvers">
-            <list>
-                <ref bean="velocityViewResolver"/>
-            </list>
-        </property>
-        <property name="defaultViews">
-            <list>
-                <!-- for application/json -->
-                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
-            </list>
-        </property>
-    </bean>
-
    <!-- Cookie本地化解析器 -->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
         <property name="cookieName" value="_clientlocale"/>
@@ -166,24 +114,52 @@
     </bean>
     
     <!-- 拦截器 -->
-	<mvc:interceptors>
+    <mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="org.jeecgframework.p3.core.interceptors.AuthInterceptor">
+			<mvc:mapping path="/**/*.do" />
+			<bean class="org.jeecgframework.p3.core.interceptors.SignInterceptor">
+				<!-- mode: DEV开发模式(拦截器禁用);PUB发布模式(拦截器启用) -->
+				<property name="mode"><value>DEV</value></property>
+				<!-- signKey: 签名的密钥 -->
+				<property name="signKey"><value>4B6CAED6F7B2E839CC47B1912B6CAED753F19126F7278037</value></property>
+				<!-- excludeUrls:不进行拦截的url -->
 				<property name="excludeUrls">
 					<list>
-						<value>loginController.do?noAuth</value>
+						<value>system/noAuth.do</value>
+						<value>system/toLogin.do</value>
+						<value>system/login.do</value>
+						<value>system/logout.do</value>
+						<value>system/preLogin.do</value>
+						<value>system/checkUser.do</value>
+						<value>system/syncJwid.do</value>
+						<value>back/backIndex/home.do</value>
+						<value>system/back/home.do</value>
 					</list>
 				</property>
 			</bean>
 		</mvc:interceptor>
-	</mvc:interceptors>
-    
+	
+		<mvc:interceptor>
+			<mvc:mapping path="/**/back/**/*.do" />
+			<bean class="com.jeecg.p3.system.interceptors.AuthInterceptor">
+				<!-- mode: DEV开发模式(拦截器禁用);PUB发布模式(拦截器启用) -->
+				<property name="mode"><value>PUB</value></property>
+				<!-- excludeUrls:不进行拦截的url -->
+				<property name="excludeUrls">
+					<list>
+						<value>back/backIndex/home.do</value>
+						<value>system/back/home.do</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>  
+
     <!-- 默认首页 -->
-    <!-- <mvc:view-controller path="/" view-name="redirect:index.do"/> -->
+    <mvc:view-controller path="/" view-name="redirect:content/index.html"/>
     
-    <!-- 读取server.properties -->
-    <!-- <util:properties id="scp" location="classpath:server.properties"  local-override="true"/> -->
+    <!-- 读取p3-web-sysconfig.properties -->
+    <util:properties id="sysconfig" location="classpath:p3-web-sysconfig.properties"  local-override="true"/> 
     
     
 

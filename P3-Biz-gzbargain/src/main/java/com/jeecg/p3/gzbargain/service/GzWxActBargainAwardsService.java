@@ -54,5 +54,15 @@ public interface GzWxActBargainAwardsService {
 	
 	public GzWxActBargainAwards queryByPriKey(String id);
 	
+	public void doAdd(GzWxActBargainAwards wxActBargainAwards);
+	
+	public void doEdit(GzWxActBargainAwards wxActBargainAwards);
+	
+	public void doDelete(String id);
+	
+	public GzWxActBargainAwards queryById(String id);
+	
+	public PageList<GzWxActBargainAwards> queryPageList(PageQuery<GzWxActBargainAwards> pageQuery);
+	
 }
 
