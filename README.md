@@ -6,6 +6,11 @@ P3-Weixin
 ==========
 特点：（JAVA 插件开发框架->松耦合、插件模式）
 
+演示公众号（H5活动汇）
+==========
+![github](http://www.jeecg.org/data/attachment/forum/201601/25/180314mjvputsot6hhtvoa.jpg "jeewx521")
+
+
 【架构说明】
 
     1.P3-weixin 采用SpringMvc + Mybatis + Velocity + Maven(构建) 框架技术
@@ -58,20 +63,19 @@ P3-Weixin
 
 * [Jeewx捷微官网](http://www.jeewx.com)
 * [Jeewx技术论坛](http://www.jeecg.org)
-*  技术交流QQ群: 289709451
+*  交流QQ群: 289709451
 
 
 
-### 砍价活动
-![github](http://www.jeecg.org/data/attachment/forum/201509/15/150241ck1hm1l6h1g5hgl2.png "jeecg")
-![github](http://www.jeecg.org/data/attachment/forum/201509/15/150827arn602ga2f2x323g.png "jeecg")
-![github](http://www.jeecg.org/data/attachment/forum/201509/15/150453lzotkxnol9q26tfq.png "jeecg")
-![github](http://www.jeecg.org/data/attachment/forum/201509/15/150630wgkz68gsobbkzopq.png "jeecg")
+### 砍价活动-效果图
+![github](http://www.jeecg.org/data/attachment/forum/201601/25/180710anjfgtn677nojgg0.png "jeecg")
+### 九宫格活动-效果图
+![github](http://www.jeecg.org/data/attachment/forum/201601/25/180716vp55nguk5ggwqngw.png "jeecg")
+### 斧头帮砍价-效果图
+![github](http://www.jeecg.org/data/attachment/forum/201601/25/180500iwpg1agqm778wggp.png "jeecg")
+### 摇一摇送卡券-效果图
+![github](http://www.jeecg.org/data/attachment/forum/201601/25/180718zwfdl9ml1a15w8jf.png "jeecg")
 
-### 九宫格活动
-### 斧头帮砍价
-### 摇一摇送卡券
-
-### H5活动营销平台-演示
+### H5活动营销平台（后台）
 ![github](http://img.blog.csdn.net/20151028202143675?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
 ![github](http://img.blog.csdn.net/20151028202206676?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
