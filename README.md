@@ -1,6 +1,8 @@
-Jeewx 微信插件开发框架，松耦合开发微信HTML5活动
+捷微H5营销活动平台（以插件模式开发，H5营销活动，独立部署，解决活动并发压力大的问题）
+
 ==========
 P3-Weixin （JAVA SAAS模式插件开发利器）
+特点：松耦合、插件机制
 ==========
 
 【架构说明】
@@ -33,8 +35,8 @@ P3-Weixin （JAVA SAAS模式插件开发利器）
 	  
 	
 【生成生成器】
-   工具类：P3-Web/src/main/java/org/jeecgframework/p3/cg/util/CodeToolUtil.java
-   配置文件：P3-Web/src/main/resources/p3-cg-config.properties
+	1.工具类：P3-Web/src/main/java/org/jeecgframework/p3/cg/util/CodeToolUtil.java
+	2.配置文件：P3-Web/src/main/resources/p3-cg-config.properties
 
 
 【开发文档】
