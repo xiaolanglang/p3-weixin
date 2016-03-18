@@ -6,11 +6,11 @@ P3-Weixin
 ==========
 特点：（JAVA 插件开发框架->松耦合、插件模式）
 
-### 技术交流
-
-* [H5活动营销平台](http://www.h5huodong.com)
-* [Jeewx论坛](http://www.jeecg.org)
-*  H5活动P3-Weixin开发群①: 413534092
+技术交流
+==========
+* 官网：[H5活动营销平台](http://www.h5huodong.com)
+* 论坛：[www.jeecg.org](http://www.jeecg.org)
+* H5活动开发群①: 413534092
 
 演示公众号（H5活动汇）
 ==========
