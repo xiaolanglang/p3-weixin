@@ -6,6 +6,12 @@ P3-Weixin
 ==========
 特点：（JAVA 插件开发框架->松耦合、插件模式）
 
+### 技术交流
+
+* [H5活动营销平台](http://www.h5huodong.com)
+* [Jeewx论坛](http://www.jeecg.org)
+*  H5活动P3-Weixin开发群①: 413534092
+
 演示公众号（H5活动汇）
 ==========
 ![github](http://www.jeecg.org/data/attachment/forum/201601/25/180314mjvputsot6hhtvoa.jpg "jeewx521")
@@ -69,12 +75,6 @@ P3-Weixin
 	1.工具类：P3-Web/src/main/java/org/jeecgframework/p3/cg/util/CodeToolUtil.java
 	2.配置文件：P3-Web/src/main/resources/p3-cg-config.properties
 
-      
-### 联系我们
-
-* [Jeewx捷微官网](http://www.jeewx.com)
-* [Jeewx技术论坛](http://www.jeecg.org)
-*  交流QQ群: 289709451
 
 
 ### H5活动营销平台（后台）
