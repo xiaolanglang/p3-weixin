@@ -10,7 +10,7 @@ P3-Weixin
 ==========
 * 官网：[H5活动营销平台](http://www.h5huodong.com)
 * 论坛：[www.jeecg.org](http://www.jeecg.org)
-* H5活动开发群①: 413534092
+* H5活动开发群①: 289709451
 
 演示公众号（H5活动汇）
 ==========
