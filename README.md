@@ -1,10 +1,10 @@
 捷微H5活动开源平台（h5huodong.com）
 ==========
-特点：（采用插件模式开发H5营销活动，独立部署，解决微信活动大用户、高并发问题）
+特点：（采用JAVA微服务框，插件式组件化、开发H5营销活动，支持独立部署，解决微信活动大用户、高并发问题）
 
 P3-Weixin 
 ==========
-特点：（JAVA 插件开发框架->松耦合、插件模式）
+特点：（微服务框架，松耦合、插件模式、组件化）
 
 技术交流
 ==========
@@ -65,7 +65,13 @@ P3-Weixin
 
 	1.Eclipse + Maven + JDK7
     2.项目以Maven方式导入eclipse
-	3.采用maven方式，启动主项目P3-Web，命令：tomcat:run
+	3.执行数据库脚本，每个项目脚本单独提供
+	    P3-Web\doc\db\p3-base-init.sql
+		P3-Biz-jiugongge\doc\db\jiugongge-init.sql
+		P3-Biz-gzbargain\doc\db\gzbargain-init.sql
+		P3-Biz-commonftb\doc\db\commonftb-init.sql
+		P3-Biz-shaketicket\doc\db\shaketicket-init.sql
+	4.采用maven方式，启动主项目P3-Web，命令：tomcat:run
       活动访问地址：http://localhost:8080/P3-Web/gzbargain/toIndex.do?actId=actgzbargain00001&openid=oR0jFt_DTsAUJebWqGeq3A1VWfRw&subscribe=1
 	  说明：插件不能单独启动，maven方式引入到Web项目
 	  
