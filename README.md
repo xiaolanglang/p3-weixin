@@ -65,15 +65,20 @@ P3-Weixin
 
 	1.Eclipse + Maven + JDK7
     2.项目以Maven方式导入eclipse
-	3.执行数据库脚本，每个项目脚本单独提供
+	3.执行Mysql数据库脚本，每个项目脚本单独提供
 	    P3-Web\doc\db\p3-base-init.sql
 		P3-Biz-jiugongge\doc\db\jiugongge-init.sql
 		P3-Biz-gzbargain\doc\db\gzbargain-init.sql
 		P3-Biz-commonftb\doc\db\commonftb-init.sql
 		P3-Biz-shaketicket\doc\db\shaketicket-init.sql
+		
+		完整项目SQL脚本：
+		docs\p3-weixin-all-mysql.sql
 	4.采用maven方式，启动主项目P3-Web，命令：tomcat:run
-      活动访问地址：http://localhost:8080/P3-Web/gzbargain/toIndex.do?actId=actgzbargain00001&openid=oR0jFt_DTsAUJebWqGeq3A1VWfRw&subscribe=1
+      活动访问地址：
+	     http://localhost:8080/P3-Web/gzbargain/toIndex.do?actId=actgzbargain00001&openid=oR0jFt_DTsAUJebWqGeq3A1VWfRw&subscribe=1
 	  说明：插件不能单独启动，maven方式引入到Web项目
+	5.系统默认登录账号 admin/123456
 	  
 	
 【代码生成器】
@@ -84,6 +89,6 @@ P3-Weixin
 
 
 ### H5活动营销平台（后台）
-![github](http://img.blog.csdn.net/20151028202143675?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
+![github](http://img.blog.csdn.net/20160830143702156?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
 ![github](http://img.blog.csdn.net/20151028202206676?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
 ![github](http://www.jeecg.org/data/attachment/forum/201601/25/182100gwfrlwssjbp278wf.png "jeecg")
