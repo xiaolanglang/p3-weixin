@@ -57,6 +57,35 @@
 	    </property>  
 	</bean>
 
+	
+	<bean id="dataSource_jeewx" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${database_jeewx.driverClassName}" />
+		<property name="url" value="${database_jeewx.url}" />
+		<property name="username" value="${database_jeewx.username}" />
+		<property name="password" value="${database_jeewx.password}" />
+		<property name="maxActive"><value>10</value></property>   
+        <property name="initialSize"><value>5</value></property>   
+        <property name="maxWait"><value>30000</value></property>        <!-- 超时等待时间  以毫秒为单位 --> 
+        <property name="maxIdle"><value>20</value></property>            <!-- 最大空闲连接 -->
+        <property name="minIdle"><value>5</value></property>             <!-- 最小空闲连接 -->
+        <property name="removeAbandoned"><value>true</value></property>  <!-- 是否自动回收超时连接 --> 
+        <property name="removeAbandonedTimeout"><value>30</value></property>  <!-- 超时时间(以秒数为单位) --> 
+        <property name="testWhileIdle"><value>true</value></property>    <!-- 打开检查,用异步线程evict进行检查 -->   
+    	<property name="testOnBorrow"><value>true</value></property>   
+    	<property name="testOnReturn"><value>false</value></property>   
+    	<property name="validationQuery"><value>select 1</value></property>      	 
+    	<property name="numTestsPerEvictionRun"><value>20</value></property>  
+    	<property name="minEvictableIdleTimeMillis"><value>1800000</value></property>     	 
+	</bean>
+	
+	<!-- jdbc注入 -->  
+    <bean id="jdbcTemplate"  
+        class="org.springframework.jdbc.core.JdbcTemplate">  
+        <property name="dataSource">  
+            <ref bean="dataSource_jeewx" />  
+        </property>  
+    </bean> 
+    
 	<import resource="classpath:config/spring-config-datasource.xml" />
 	<import resource="classpath:config/spring-config-p3.xml" />
 	<import resource="classpath:config/spring-config-cache.xml" />
