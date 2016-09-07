@@ -36,7 +36,7 @@ P3-Weixin
 【开发文档】
 
 ![github](http://img.blog.csdn.net/20151028163509595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center "jeecg")
-* [  文档下载来点我](http://www.jeecg.org/forum.php?mod=forumdisplay&fid=191)
+* [  文档下载来点我](http://www.jeecg.org/forum.php?mod=forumdisplay&fid=202)
 
 
 
